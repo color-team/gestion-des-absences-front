@@ -14,8 +14,11 @@ pipeline {
     }
 
     stage('deploy') {
+      when {
+        branch "master"
+      }
       steps {
-        sh "ng deploy --base-href=https://2020-d05-java-devops/gestion-des-absences-front/"
+        sh "ng deploy --base-href=https://2020-d05-java-devops.github.io/gestion-des-absences-front/"
       }
     }
   }
