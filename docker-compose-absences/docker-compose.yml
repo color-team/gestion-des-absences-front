@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+    absences-bdd:
+        build: ./absences-bdd
+        image: absences-bdd
+        #image: robinlad/absences-bdd
+        container_name: absences-bdd
+        networks:
+            - absences-network
+        volumes:
+            - absences-bdd-data:/var/lib/mysql
+    
+    absences-back:
+        build: C:\Users\robin\eclipse-workspace-SpringToolSuite\gestion-des-absences-back
+        image: absences-back
+        #image: robinlad/absences-back
+        container_name: absences-back
+        ports:
+            - "8080:8080"
+        depends_on:
+            - absences-bdd
+        networks:
+            - absences-network
+            
+    absences-front:
+        build: D:\dev\angular-tp\gestion-des-absences-front
+        image: absences-front
+        #image: robinlad/absences-front
+        container_name: absences-front
+        depends_on:
+            - absences-back
+        ports:
+            - "80:80"
+        networks:
+            - absences-network
+
+networks:
+    absences-network:
+
+volumes:
+    absences-bdd-data:
