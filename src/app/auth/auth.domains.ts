@@ -11,21 +11,20 @@ export class Collegue {
   constructor(params: any) {
     Object.assign(this, params);
   }
-
+  
   estAnonyme(): boolean {
     return this.email === undefined;
   }
-
+  
   estAdmin(): boolean {
     return this.roles.includes(`ROLE_ADMINISTRATEUR`);
   }
-
+  
   estManager(): boolean {
     return this.roles.includes(`ROLE_MANAGER`);
   }
-
+  
   estEmploye(): boolean {
     return this.roles.includes(`ROLE_EMPLOYE`);
   }
-
 }
