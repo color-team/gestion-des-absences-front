@@ -10,13 +10,15 @@ import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    TechComponent
+    TechComponent,
+    MenuEmployeComponent
   ],
   imports: [
     BrowserModule,
