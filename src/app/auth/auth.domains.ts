@@ -7,6 +7,8 @@ export class Collegue {
   email: string;
   motDePasse: string;
   roles: string[];
+  nbRtt: number;
+  nbCongesPayes: number;
 
   constructor(params: any) {
     Object.assign(this, params);
@@ -27,4 +29,5 @@ export class Collegue {
   estEmploye(): boolean {
     return this.roles.includes(`ROLE_EMPLOYE`);
   }
+
 }
