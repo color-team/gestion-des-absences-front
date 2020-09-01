@@ -12,14 +12,21 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { DemandeAbsenceComponent } from './demande-absence/demande-absence.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { VisualisationAbsenceComponent } from './visualisation-absence/visualisation-absence.component';
+import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
+import { MenuManagerComponent } from './menu-manager/menu-manager.component';
+import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     TechComponent,
-    DemandeAbsenceComponent
+    DemandeAbsenceComponent,
+    VisualisationAbsenceComponent,
+    MenuEmployeComponent,
+    MenuManagerComponent,
+    MenuAdministrateurComponent
   ],
   imports: [
     BrowserModule,

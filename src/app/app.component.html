@@ -1,19 +1,27 @@
-<div class="jumbotron">
-  <h1 class="display-4">Super Application</h1>
-  <ng-container *ngIf="collegueConnecte | async as col">
+<ng-container *ngIf="collegueConnecte | async as col">
+    
     <div class="lead" *ngIf="!col.estAnonyme()">
-      <p  >Utilisateur connecté : {{col.email}}</p>
+      <div class="jumbotron">
+        <h1 class="display-4">Super Application</h1>
+        
+    <p>Utilisateur connecté : {{col.email}}</p>
+
       <p>Les rôles :</p>
       <ul>
         <li *ngFor="let r of col.roles">{{r}}</li>
       </ul>
-      <button  class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
-
-      <a routerLink="/demande-absence" routerLinkActive="menu-actif">Demande Absence</a>
-
+      <div class="row">
+        <button  class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
+        <app-menu-employe *ngIf="col.estEmploye()"></app-menu-employe>
+        <app-menu-manager *ngIf="col.estManager()"></app-menu-manager>
+        <app-menu-administrateur *ngIf="col.estAdmin()"></app-menu-administrateur>
+        
+      </div>
+      </div>
     </div>
-  </ng-container>
-</div>
+  
+</ng-container>
+
 <main class="container">
   <router-outlet></router-outlet>
 </main>

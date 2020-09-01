@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Collegue} from './auth/auth.domains';
@@ -9,7 +9,8 @@ import {AuthService} from './auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+
+export class AppComponent implements OnInit {
 
   collegueConnecte: Observable<Collegue>;
 
@@ -22,7 +23,7 @@ export class AppComponent {
    */
   seDeconnecter() {
     this.authSrv.seDeconnecter().subscribe(
-      () => this.router.navigate(['/auth'])
+      () => this.router.navigate(['/connexion'])
     );
   }
 
@@ -35,4 +36,6 @@ export class AppComponent {
 
     this.collegueConnecte = this.authSrv.collegueConnecteObs;
   }
+
+
 }
