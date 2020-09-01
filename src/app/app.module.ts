@@ -18,7 +18,7 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
     AppComponent,
     AuthComponent,
     TechComponent,
-    MenuManagerComponent
+    MenuManagerComponent,
     MenuAdministrateurComponent
   ],
   imports: [
