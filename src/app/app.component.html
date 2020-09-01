@@ -9,7 +9,7 @@
       </ul>
       <div class="row">
         <button  class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
-        <app-menu-manager></app-menu-manager>
+        <app-menu-manager *ngIf="col.estManager()"></app-menu-manager>
       </div>
 
 
