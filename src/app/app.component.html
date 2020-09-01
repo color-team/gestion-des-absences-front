@@ -7,8 +7,10 @@
       <ul>
         <li *ngFor="let r of col.roles">{{r}}</li>
       </ul>
-      <button  class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
-
+      <div class="row">
+        <button  class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
+        <app-menu-administrateur></app-menu-administrateur>
+      </div>
     </div>
   </ng-container>
 </div>
