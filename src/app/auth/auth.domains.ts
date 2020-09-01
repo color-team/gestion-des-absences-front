@@ -22,7 +22,7 @@ export class Collegue {
   estManager(): boolean {
     return this.roles.includes(`ROLE_MANAGER`);
   }
-
+  
   estEmploye(): boolean {
     return this.roles.includes(`ROLE_EMPLOYE`);
   }
