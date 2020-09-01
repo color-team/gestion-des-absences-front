@@ -9,7 +9,7 @@
       </ul>
       <div class="row">
         <button  class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
-        <app-menu-employe></app-menu-employe>
+        <app-menu-employe *ngIf="col.estEmploye()"></app-menu-employe>
       </div>
     </div>
   </ng-container>
