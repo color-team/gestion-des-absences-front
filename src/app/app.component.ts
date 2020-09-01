@@ -9,6 +9,7 @@ import {AuthService} from './auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit {
 
   collegueConnecte: Observable<Collegue>;
@@ -35,4 +36,6 @@ export class AppComponent implements OnInit {
 
     this.collegueConnecte = this.authSrv.collegueConnecteObs;
   }
+
+
 }

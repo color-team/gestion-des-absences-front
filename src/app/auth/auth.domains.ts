@@ -15,7 +15,6 @@ export class Collegue {
   estAnonyme(): boolean {
     return this.email === undefined;
   }
-
   estAdmin(): boolean {
     return this.roles.includes(`ROLE_ADMINISTRATEUR`);
   }
@@ -23,7 +22,7 @@ export class Collegue {
   estManager(): boolean {
     return this.roles.includes(`ROLE_MANAGER`);
   }
-
+  
   estEmploye(): boolean {
     return this.roles.includes(`ROLE_EMPLOYE`);
   }

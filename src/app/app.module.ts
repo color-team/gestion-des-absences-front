@@ -11,7 +11,7 @@ import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
-
+import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { MenuManagerComponent } from './menu-manager/menu-manager.component';
     AuthComponent,
     TechComponent,
     MenuManagerComponent
+    MenuAdministrateurComponent
   ],
   imports: [
     BrowserModule,
