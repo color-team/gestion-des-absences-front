@@ -5,14 +5,14 @@ import { TechComponent } from './tech/tech.component';
 import { StatutConnecteService } from './auth/statut-connecte.service';
 import { AuthComponent } from './auth/auth.component';
 
-
-const routes: Routes = [
-  { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService] }, // /tech accessible uniquement si connecté
-  { path: 'auth', component: AuthComponent },
-  { path: 'absv', component: VisualisationAbsenceComponent },
-  { path: '', redirectTo: '/tech', pathMatch: 'full' }
+const routes: Routes =  [
+  { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService]},
+  { path: 'connexion', component: AuthComponent},
+  { path: 'acceuil', component: TechComponent},
+  { path: 'absv', component: VisualisationAbsenceComponent},
+  { path: 'absd', component: TechComponent},
+  { path: '', redirectTo: '/tech', pathMatch: 'full'}
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

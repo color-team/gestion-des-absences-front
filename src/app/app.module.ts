@@ -11,14 +11,19 @@ import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { VisualisationAbsenceComponent } from './visualisation-absence/visualisation-absence.component';
-
+import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
+import { MenuManagerComponent } from './menu-manager/menu-manager.component';
+import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     TechComponent,
-    VisualisationAbsenceComponent
+    VisualisationAbsenceComponent,
+    MenuEmployeComponent,
+    MenuManagerComponent,
+    MenuAdministrateurComponent
   ],
   imports: [
     BrowserModule,
