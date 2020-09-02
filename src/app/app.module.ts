@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AuthComponent} from './auth/auth.component';
@@ -16,6 +20,12 @@ import { VisualisationAbsenceComponent } from './visualisation-absence/visualisa
 import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
+import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
+
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+]);
 
 @NgModule({
   declarations: [
@@ -26,14 +36,16 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
     VisualisationAbsenceComponent,
     MenuEmployeComponent,
     MenuManagerComponent,
-    MenuAdministrateurComponent
+    MenuAdministrateurComponent,
+    PlanningDesAbsencesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    FullCalendarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
