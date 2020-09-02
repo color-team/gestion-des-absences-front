@@ -1,6 +1,16 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a routerLink="/Acceuil" class="navbar-brand" >Acceuil</a>
-  <a routerLink="/absd" class="navbar-brand" >Gestion des absences</a>
-  <a routerLink="/absv" class="navbar-brand" >Planning des absences</a>
-  <a routerLink="/absv" class="navbar-brand" >Jours feriés</a>
+<nav ngbNav #nav="ngbNav" id="navEmp" class="nav-tabs">
+  <ng-container ngbNavItem>
+    <a ngbNavLink routerLink="/accueil">Accueil</a>
+  </ng-container>
+  <ng-container ngbNavItem>
+    <a ngbNavLink routerLink="/absv">Gestion des absences</a>
+  </ng-container>
+  <ng-container ngbNavItem>
+    <a ngbNavLink routerLink="/test1">Planning des absences</a>
+  </ng-container>
+  <ng-container ngbNavItem>
+    <a ngbNavLink routerLink="/test2">Jours feriés</a>
+  </ng-container>
 </nav>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

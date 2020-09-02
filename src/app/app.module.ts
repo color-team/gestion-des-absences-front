@@ -10,6 +10,9 @@ import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { DemandeAbsenceComponent } from './demande-absence/demande-absence.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { VisualisationAbsenceComponent } from './visualisation-absence/visualisation-absence.component';
 import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
@@ -19,6 +22,8 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
     AppComponent,
     AuthComponent,
     TechComponent,
+    DemandeAbsenceComponent,
+    VisualisationAbsenceComponent,
     MenuEmployeComponent,
     MenuManagerComponent,
     MenuAdministrateurComponent
@@ -27,7 +32,8 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

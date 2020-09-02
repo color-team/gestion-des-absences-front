@@ -3,9 +3,11 @@
  *
  */
 export const config = {
-  apiVersion : 'versions',
+  apiVersion: 'versions',
   apiActuator: 'actuator',
   apiLogin: 'login',
   apiLogout: 'logout',
-  apiAuthMe: 'me'
+  apiAuthMe: 'me',
+  apiTypeEnum: 'typeenum',
+  apiAbsences: 'absences'
 };
