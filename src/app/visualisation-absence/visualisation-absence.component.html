@@ -19,23 +19,24 @@
         <td>{{absence.dateFin}}</td>
         <td>{{absence.type}}</td>
         <td>{{absence.status}}</td>
-        <td>actions</td>
+        <td>
+          <button type="button" class="btn btn-secondary" *ngIf="absence.type=='STATUS_INITIAL'">Modifier</button>
+          &nbsp;&nbsp;
+          <button type="button" class="btn btn-danger" (click)="supprAbs(absence.uuid)">Supprimer</button>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
 <div class="row justify-content-end">
   <a routerLink="/absd" routerLinkActive="menu-actif">Demander une absence</a>
-  <!-- à changer car ça bug :) -->
 </div>
 <br />
 <div class="row justify-content-start">
-  <ng-container *ngIf="collegueConnecte | async as col">
-    <span> Solde des compteurs :
-      <ul>
-        <li>Congés payés : {{col.nbCongesPayes}}</li>
-        <li> RTT : {{col.nbRtt}}</li>
-      </ul>
-    </span>
-  </ng-container>
+  <span> Solde des compteurs :
+    <ul>
+      <li *ngIf="collegueConnecte">Congés payés : {{collegueConnecte.nbCongesPayes}}</li>
+      <li *ngIf="collegueConnecte"> RTT : {{collegueConnecte.nbRtt}}</li>
+    </ul>
+  </span>
 </div>
