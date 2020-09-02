@@ -1,6 +1,9 @@
+import { Collegue } from './../auth/auth.domains';
+import { Absence } from './../models/Absence';
 import { DemandeAbsenceService } from './demande-absence.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-demande-absence',
@@ -11,12 +14,16 @@ export class DemandeAbsenceComponent implements OnInit {
 
   listTypeEnum: string[];
 
+  collegueConnecte: Collegue;
+  newAbsence: Absence;
+
   hoveredDate: NgbDate | null = null;
 
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private dataServ: DemandeAbsenceService) {
+  // tslint:disable-next-line: max-line-length
+  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
@@ -51,11 +58,32 @@ export class DemandeAbsenceComponent implements OnInit {
 
   ngOnInit(): void {
     this.listTypeEnum = [];
+    this.newAbsence = {};
+
+    this.authSrv.verifierAuthentification().subscribe(
+      v =>  this.collegueConnecte = v,
+      err => { },
+      () => { }
+    );
 
     this.dataServ.getEnum().subscribe(
       value => this.listTypeEnum = value,
       err => { },
       () => { }
+    );
+  }
+
+  creerAbsence(dpFromDate: NgbDate, dpToDate: NgbDate, selectType: string, motif: string): void {
+
+    this.newAbsence.dateDebut = dpFromDate;
+    this.newAbsence.dateFin = dpToDate;
+    this.newAbsence.type = selectType;
+    this.newAbsence.motif = motif;
+
+
+    this.dataServ.postAbsence(this.newAbsence).subscribe(
+      err => {},
+      () => {}
     );
   }
 }
