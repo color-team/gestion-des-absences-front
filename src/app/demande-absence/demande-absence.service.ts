@@ -26,8 +26,6 @@ export class DemandeAbsenceService {
   }
 
   postAbsence(newAbsence: Absence): Observable<Absence> {
-    console.log("postabs");
-    console.log(newAbsence);
     return this.http.post<Absence>(`${environment.baseUrl}${environment.apiAbsences}`, newAbsence, httpOptions);
   }
 }

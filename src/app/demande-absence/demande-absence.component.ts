@@ -61,7 +61,7 @@ export class DemandeAbsenceComponent implements OnInit {
     this.newAbsence = {};
 
     this.authSrv.verifierAuthentification().subscribe(
-      v => { this.collegueConnecte = v; console.log(v); },
+      v =>  this.collegueConnecte = v,
       err => { },
       () => { }
     );
@@ -82,7 +82,6 @@ export class DemandeAbsenceComponent implements OnInit {
 
 
     this.dataServ.postAbsence(this.newAbsence).subscribe(
-      v => console.log(v),
       err => {},
       () => {}
     );
