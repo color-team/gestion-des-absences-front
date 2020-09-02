@@ -17,7 +17,6 @@
           [dayTemplate]="t"
           outsideDays="hidden"
           [startDate]="fromDate!"
-          #date_debut
         />
         <ng-template #t let-date let-focused="focused">
           <span
@@ -82,7 +81,7 @@
   <div class="row justify-content-start">
     <div class="form-group">
       <label for="exampleFormControlSelect1">Type de congé</label>
-      <select class="form-control" id="exampleFormControlSelect1">
+      <select class="form-control" id="exampleFormControlSelect1"  #selectType>
         <option *ngFor="let item of listTypeEnum">{{item}}</option>
       </select>
     </div>
@@ -97,9 +96,15 @@
       class="form-control"
       id="exampleFormControlTextarea1"
       rows="3"
-    ></textarea>
+    #motif></textarea>
   </div>
-  <br />
+  <br/>
+
+
+  <button type="button" class="btn btn-primary row justify-content-start enregistrer" (click)="creerAbsence(dpFromDate.value,dpToDate.value,selectType.value,motif.value)">Enregistrer</button>
+  <button type="button" class="btn btn-danger ">Annuler</button>
+
+
 
 </form>
 
