@@ -1,6 +1,6 @@
 import { DemandeAbsenceService } from './demande-absence.service';
 import { Component, OnInit } from '@angular/core';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-demande-absence',
@@ -57,8 +57,5 @@ export class DemandeAbsenceComponent implements OnInit {
       err => { },
       () => { }
     );
-
-
   }
-
 }

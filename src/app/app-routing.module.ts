@@ -6,13 +6,13 @@ import { TechComponent } from './tech/tech.component';
 import { StatutConnecteService } from './auth/statut-connecte.service';
 import { AuthComponent } from './auth/auth.component';
 
-const routes: Routes =  [
-  { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService]},
-  { path: 'connexion', component: AuthComponent},
-  { path: 'acceuil', component: TechComponent},
-  { path: 'absv', component: VisualisationAbsenceComponent},
-  { path: 'absd', component: DemandeAbsenceComponent},
-  { path: '', redirectTo: '/tech', pathMatch: 'full'}
+const routes: Routes = [
+  { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService] },
+  { path: 'connexion', component: AuthComponent },
+  { path: 'accueil', component: TechComponent },
+  { path: 'absv', component: VisualisationAbsenceComponent },
+  { path: 'absd', component: DemandeAbsenceComponent },
+  { path: '', redirectTo: '/tech', pathMatch: 'full' }
 ];
 
 @NgModule({
