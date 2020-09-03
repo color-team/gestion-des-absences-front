@@ -20,14 +20,14 @@ export class Collegue {
   }
 
   estAdmin(): boolean {
-    return this.roles.includes(`ROLE_ADMINISTRATEUR`);
+    return this.roles[0] === `ROLE_ADMINISTRATEUR`;
   }
 
   estManager(): boolean {
-    return this.roles.includes(`ROLE_MANAGER`);
+    return this.roles[0] === `ROLE_MANAGER`;
   }
 
   estEmploye(): boolean {
-    return this.roles.includes(`ROLE_EMPLOYE`);
+    return this.roles[0] === `ROLE_EMPLOYE`;
   }
 }
