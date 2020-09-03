@@ -16,6 +16,7 @@ import { VisualisationAbsenceComponent } from './visualisation-absence/visualisa
 import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
+import { VueDepartementJourCollaborateurComponent } from './vue-departement-jour-collaborateur/vue-departement-jour-collaborateur.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
     VisualisationAbsenceComponent,
     MenuEmployeComponent,
     MenuManagerComponent,
-    MenuAdministrateurComponent
+    MenuAdministrateurComponent,
+    VueDepartementJourCollaborateurComponent
   ],
   imports: [
     BrowserModule,
