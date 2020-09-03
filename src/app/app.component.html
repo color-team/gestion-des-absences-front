@@ -1,24 +1,19 @@
 <ng-container *ngIf="collegueConnecte | async as col">
-  <main class="container">
-    <div class="lead" *ngIf="!col.estAnonyme()">
-      <div id="jumbAppCompo" class="jumbotron">
-        <h1 class="display-4">Super Application</h1>
 
-        <p>Utilisateur connecté : {{col.email}}</p>
+  <div class="lead" *ngIf="!col.estAnonyme()">
+    <div id="jumbAppCompo" class="jumbotron">
+      <h3 class="display-4">Super Application</h3>
+    </div>
 
-        <p>Les rôles :</p>
-        <ul>
-          <li *ngFor="let r of col.roles">{{r}}</li>
-        </ul>
-        <div class="row">
-          <button class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
-        </div>
-      </div>
+    <div class="d-flex justify-content-between">
       <app-menu-employe *ngIf="col.estEmploye()"></app-menu-employe>
       <app-menu-manager *ngIf="col.estManager()"></app-menu-manager>
       <app-menu-administrateur *ngIf="col.estAdmin()"></app-menu-administrateur>
-    </div>
 
+      <button class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
+    </div>
+  </div>
+  <main class="container">
     <router-outlet></router-outlet>
   </main>
 </ng-container>
