@@ -2,7 +2,7 @@ import { Collegue } from './../auth/auth.domains';
 import { Absence } from './../models/Absence';
 import { DemandeAbsenceService } from './demande-absence.service';
 import { Component, OnInit } from '@angular/core';
-import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -17,15 +17,20 @@ export class DemandeAbsenceComponent implements OnInit {
   collegueConnecte: Collegue;
   newAbsence: Absence;
 
+  motifMasquee = true;
+
   hoveredDate: NgbDate | null = null;
 
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
+  minDate = undefined;
+  //min-date = "calendar.getToday()"
   // tslint:disable-next-line: max-line-length
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
-    this.fromDate = calendar.getToday();
+  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
+    this.fromDate = calendar.getNext(calendar.getToday());
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.minDate = calendar.getNext(calendar.getToday());
   }
 
   onDateSelection(date: NgbDate) {
@@ -79,11 +84,26 @@ export class DemandeAbsenceComponent implements OnInit {
     this.newAbsence.dateFin = dpToDate;
     this.newAbsence.type = selectType;
     this.newAbsence.motif = motif;
-
-
     this.dataServ.postAbsence(this.newAbsence).subscribe(
       err => {},
       () => {}
     );
   }
+
+
+/**
+* @param {string} selectType
+* @returns void
+* Fonction qui permet d'afficher l'input motif en fonction du type sélectionné
+*/
+  motifDisplay(selectType) {
+
+    if (selectType.value === `TYPE_CONGE_SANS_SOLDE`) {
+      this.motifMasquee = false;
+    }
+    else {
+      this.motifMasquee = true;
+    }
+  }
+
 }
