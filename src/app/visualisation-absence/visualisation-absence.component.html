@@ -10,7 +10,7 @@
         <th scope="col">Date de fin</th>
         <th scope="col">Type</th>
         <th scope="col">Statut</th>
-        <th scope="col">Actions</th>
+        <th scope="col" style="width: 210px;">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -20,9 +20,14 @@
         <td>{{absence.type}}</td>
         <td>{{absence.status}}</td>
         <td>
-          <button type="button" class="btn btn-secondary" *ngIf="absence.type=='STATUS_INITIAL'">Modifier</button>
-          &nbsp;&nbsp;
-          <button type="button" class="btn btn-danger" (click)="supprAbs(absence.uuid)">Supprimer</button>
+
+          <div class="d-flex justify-content-end">
+            <div class=" p-2 bd-highlight"><button type="button" class="btn btn-sm btn-secondary"
+                *ngIf="absence.status==='STATUS_INITIAL' || absence.status==='STATUS_REJETEE'"
+                (click)="select(absence)">Modifier</button></div>
+            <div class="p-2 bd-highlight"><button type="button" class="btn btn-sm btn-danger"
+                (click)="supprAbs(absence.uuid)">Supprimer</button></div>
+          </div>
         </td>
       </tr>
     </tbody>
