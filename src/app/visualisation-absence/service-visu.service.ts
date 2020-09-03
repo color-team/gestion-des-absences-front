@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Absence } from '../models/Absence';
+import { Collegue } from '../auth/auth.domains';
 
 // pour le post
 const httpOptions = {
@@ -21,5 +22,9 @@ export class ServiceVisuService {
 
   getListAbsences(): Observable<Absence[]> {
     return this.http.get<Absence[]>(`${environment.baseUrl}${environment.apiAbsences}`, { withCredentials: true });
+  }
+
+  supprAbsence(uuid: string): Observable<void> {
+    return this.http.delete<void>(`${environment.baseUrl}${environment.apiAbsences}/${uuid}`, { withCredentials: true });
   }
 }

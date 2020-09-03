@@ -13,14 +13,30 @@ import { Observable } from 'rxjs';
 export class VisualisationAbsenceComponent implements OnInit {
 
   listAbsences: Absence[];
-  collegueConnecte: Observable<Collegue>;
+  collegueConnecte: Collegue;
 
   constructor(private authSrv: AuthService, private dataServ: ServiceVisuService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.listAbsences = [];
-    this.collegueConnecte = this.authSrv.verifierAuthentification();
 
+    this.authSrv.verifierAuthentification().subscribe(
+      v => this.collegueConnecte = v,
+      err => { },
+      () => { }
+    );
+    this.getListAbs();
+  }
+
+  supprAbs(uuid: string): void {
+    this.dataServ.supprAbsence(uuid).subscribe(
+      () => this.getListAbs(),
+      err => { },
+      () => { }
+    );
+  }
+
+  getListAbs(): void {
     this.dataServ.getListAbsences().subscribe(
       v => this.listAbsences = v,
       err => { },
