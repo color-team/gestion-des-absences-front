@@ -16,6 +16,7 @@ import { AuthService } from '../auth/auth.service';
     </div>
     <div class="modal-body">
     <form>
+      <!-- ul li à delete et à mettre le form pour la modification -->
       <ul>
         <li>{{absence.dateDebut}}</li>
         <li>{{absence.dateFin}}</li>
@@ -26,7 +27,8 @@ import { AuthService } from '../auth/auth.service';
     </form>
     </div>
     <div class="modal-footer">
-      <button type="button" ngbAutofocus class="btn btn-outline-dark">Modifier</button>
+      <button type="button" ngbAutofocus class="btn btn-sm btn-primary">Modifier</button>
+      <button type="button" class="btn btn-sm btn-danger" (click)="activeModal.dismiss('Annuler')">Annuler</button>
     </div>
   `,
   styles: ['.alert-danger { margin-top: 6px; padding-top: 6px; padding-bottom: 6px; padding-left: 12px; padding-right:12px}']
@@ -44,10 +46,8 @@ export class NgbdModalContentComponent implements OnInit {
       err => { },
       () => { }
     );
-
     this.dataServ.currentMessage.subscribe(v => this.absence = v);
   }
-
 }
 
 @Component({
