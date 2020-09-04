@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Collegue } from './../auth/auth.domains';
 import { Absence } from './../models/Absence';
 import { DemandeAbsenceService } from './demande-absence.service';
@@ -5,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth/auth.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-demande-absence',
@@ -15,6 +17,7 @@ export class DemandeAbsenceComponent implements OnInit {
 
   form: FormGroup;
   submitted = false;
+  erreur: boolean;
 
   listTypeEnum: string[];
 
@@ -30,7 +33,7 @@ export class DemandeAbsenceComponent implements OnInit {
 
   minDate = undefined;
   // tslint:disable-next-line: max-line-length
-  constructor(private formBuilder: FormBuilder, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
     this.fromDate = calendar.getNext(calendar.getToday());
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.minDate = calendar.getNext(calendar.getToday());
@@ -67,6 +70,7 @@ export class DemandeAbsenceComponent implements OnInit {
   ngOnInit() {
     this.listTypeEnum = [];
     this.newAbsence = {};
+    this.erreur = false;
 
     this.authSrv.verifierAuthentification().subscribe(
       v => this.collegueConnecte = v,
@@ -97,7 +101,8 @@ export class DemandeAbsenceComponent implements OnInit {
     this.newAbsence.type = selectType;
     this.newAbsence.motif = motif;
     this.dataServ.postAbsence(this.newAbsence).subscribe(
-      err => { },
+      () => { this.redirection(); },
+      err => { this.erreur = true; },
       () => { }
     );
   }
@@ -134,6 +139,11 @@ export class DemandeAbsenceComponent implements OnInit {
           return;
       }
 
+  }
+
+  redirection(): void {
+    this.dataServ.changeBooleanAlert(true);
+    this.router.navigate(['/absv']);
   }
 
 }

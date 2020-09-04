@@ -4,6 +4,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Absence } from '../models/Absence';
 import { AuthService } from '../auth/auth.service';
+import { DemandeAbsenceService } from '../demande-absence/demande-absence.service';
 
 @Component({
   selector: 'app-ngbd-modal-content',
@@ -59,8 +60,10 @@ export class VisualisationAbsenceComponent implements OnInit {
 
   listAbsences: Absence[];
   collegueConnecte: Collegue;
+  success = false;
 
-  constructor(private authSrv: AuthService, private dataServ: ServiceVisuService, private modalService: NgbModal) { }
+  // tslint:disable-next-line: max-line-length
+  constructor(private authSrv: AuthService, private dataServ: ServiceVisuService, private dataServ2: DemandeAbsenceService,  private modalService: NgbModal) { }
 
   ngOnInit() {
     this.listAbsences = [];
@@ -71,6 +74,7 @@ export class VisualisationAbsenceComponent implements OnInit {
       () => { }
     );
     this.getListAbs();
+    this.dataServ2.currentBooleanAlert.subscribe(v => this.success = v);
   }
 
   supprAbs(uuid: string): void {

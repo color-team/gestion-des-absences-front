@@ -1,6 +1,6 @@
 <h2>Demande d'absences</h2>
 <br>
-
+<div *ngIf="erreur" class="alert alert-danger">Vous ne pouvez pas ajouter d'absence(s) à ces jours.</div>
 <form [formGroup]="form" >
   <!-- ==================================DATE ===================================================-->
   <div class="row justify-content-start">
