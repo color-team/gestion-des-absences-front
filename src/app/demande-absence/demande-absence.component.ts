@@ -25,7 +25,7 @@ export class DemandeAbsenceComponent implements OnInit {
   toDate: NgbDate | null;
 
   minDate = undefined;
-  //min-date = "calendar.getToday()"
+  // min-date = "calendar.getToday()"
   // tslint:disable-next-line: max-line-length
   constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
     this.fromDate = calendar.getNext(calendar.getToday());
@@ -66,7 +66,7 @@ export class DemandeAbsenceComponent implements OnInit {
     this.newAbsence = {};
 
     this.authSrv.verifierAuthentification().subscribe(
-      v =>  this.collegueConnecte = v,
+      v => this.collegueConnecte = v,
       err => { },
       () => { }
     );
@@ -85,17 +85,17 @@ export class DemandeAbsenceComponent implements OnInit {
     this.newAbsence.type = selectType;
     this.newAbsence.motif = motif;
     this.dataServ.postAbsence(this.newAbsence).subscribe(
-      err => {},
-      () => {}
+      err => { },
+      () => { }
     );
   }
 
 
-/**
-* @param {string} selectType
-* @returns void
-* Fonction qui permet d'afficher l'input motif en fonction du type sélectionné
-*/
+
+  // @param {string} selectType
+  // @returns void
+  // Fonction qui permet d'afficher l'input motif en fonction du type sélectionné
+
   motifDisplay(selectType) {
 
     if (selectType.value === `TYPE_CONGE_SANS_SOLDE`) {
