@@ -13,10 +13,10 @@ export class VisualisationJferieService {
   constructor(private http: HttpClient) { }
 
   getListAnnee(): Observable<string[]> {
-    return this.http.get<string[]>(`${environment.baseUrl}${environment.apiJferies}/annees`, { withCredentials: true });
+    return this.http.get<string[]>(`${environment.baseUrl}${environment.apiJFerieRtt}/annees`, { withCredentials: true });
   }
 
   getListJFerieRtt(annee: string): Observable<JFerieRtt[]> {
-    return this.http.get<JFerieRtt[]>(`${environment.baseUrl}${environment.apiJferies}/${annee}`, { withCredentials: true });
+    return this.http.get<JFerieRtt[]>(`${environment.baseUrl}${environment.apiJFerieRtt}/${annee}`, { withCredentials: true });
   }
 }
