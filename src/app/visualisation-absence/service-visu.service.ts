@@ -4,7 +4,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Absence } from '../models/Absence';
-import { Collegue } from '../auth/auth.domains';
 
 // pour le post
 const httpOptions = {

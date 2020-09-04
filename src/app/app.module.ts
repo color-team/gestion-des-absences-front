@@ -2,6 +2,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
@@ -17,6 +21,13 @@ import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
+import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
+import { VisualisationJferieComponent } from './visualisation-jferie/visualisation-jferie.component';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+]);
+
 
 @NgModule({
   declarations: [
@@ -28,7 +39,9 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
     NgbdModalContentComponent,
     MenuEmployeComponent,
     MenuManagerComponent,
-    MenuAdministrateurComponent
+    MenuAdministrateurComponent,
+    PlanningDesAbsencesComponent,
+    VisualisationJferieComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +49,8 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    FullCalendarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

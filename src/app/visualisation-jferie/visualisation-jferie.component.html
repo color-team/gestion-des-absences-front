@@ -1,0 +1,37 @@
+<br />
+<div class="d-flex justify-content-center">
+  <h1> Jours fériés et RTT employeus </h1>
+</div>
+<br />
+<div class="d-flex justify-content-center">
+  <span id="annee">Année</span>
+  <select id="selectdate" class="browser-default custom-select" (change)="onChangeAnnee($event.target.value)">
+    <option *ngFor="let annee of listAnnee">{{annee}}</option>
+  </select>
+</div>
+<br />
+<div class="d-flex justify-content-center">
+  <table class="table">
+    <thead>
+      <tr>
+        <th id="col20" scope="col">Date</th>
+        <th id="col20" scope="col">Type</th>
+        <th id="col20" scope="col">Jour</th>
+        <th id="col20" scope="col">Commentaires</th>
+        <th id="colp" scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let jferie of listJFerieRtt">
+        <td>{{jferie.date}}</td>
+        <td>{{jferie.type}}</td>
+        <td>{{jferie.jour}}</td>
+        <td>{{jferie.commentaire}}</td>
+        <td>actions</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="collegueConnecte.estAdmin()" class="d-flex justify-content-end">
+  <a routerLink="/jferied" routerLinkActive="menu-actif">Ajouter un jour férié ou une RTT emp</a>
+</div>

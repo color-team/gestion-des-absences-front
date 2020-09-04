@@ -69,7 +69,7 @@ export class DemandeAbsenceComponent implements OnInit {
     this.newAbsence = {};
 
     this.authSrv.verifierAuthentification().subscribe(
-      v =>  this.collegueConnecte = v,
+      v => this.collegueConnecte = v,
       err => { },
       () => { }
     );
@@ -97,16 +97,16 @@ export class DemandeAbsenceComponent implements OnInit {
     this.newAbsence.type = selectType;
     this.newAbsence.motif = motif;
     this.dataServ.postAbsence(this.newAbsence).subscribe(
-      err => {},
-      () => {}
+      err => { },
+      () => { }
     );
   }
 
 
 
-// @param {string} selectType
-// @returns void
-// Fonction qui permet d'afficher l'input motif en fonction du type sélectionné
+  // @param {string} selectType
+  // @returns void
+  // Fonction qui permet d'afficher l'input motif en fonction du type sélectionné
 
   motifDisplay(selectType) {
 
