@@ -9,5 +9,6 @@ export const config = {
   apiLogout: 'logout',
   apiAuthMe: 'me',
   apiTypeEnum: 'typeenum',
-  apiAbsences: 'absences'
+  apiAbsences: 'absences',
+  apiJferies: 'jferiesrtt'
 };

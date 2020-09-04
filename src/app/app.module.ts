@@ -17,6 +17,7 @@ import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
+import { VisualisationJferieComponent } from './visualisation-jferie/visualisation-jferie.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
     NgbdModalContentComponent,
     MenuEmployeComponent,
     MenuManagerComponent,
-    MenuAdministrateurComponent
+    MenuAdministrateurComponent,
+    VisualisationJferieComponent
   ],
   imports: [
     BrowserModule,
