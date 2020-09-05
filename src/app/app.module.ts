@@ -14,7 +14,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { StatutConnecteService } from './auth/statut-connecte.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemandeAbsenceComponent } from './demande-absence/demande-absence.component';
 import { VisualisationAbsenceComponent, NgbdModalContentComponent } from './visualisation-absence/visualisation-absence.component';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
@@ -48,6 +48,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     FullCalendarModule
   ],
