@@ -30,7 +30,7 @@ export class VisualisationJferieComponent implements OnInit {
 
   getListAnnee(): void {
     this.dataServ.getListAnnee().subscribe(
-      v => this.listAnnee = v,
+      v => { this.listAnnee = v; this.onChangeAnnee(v[0]); },
       err => { },
       () => { }
     );

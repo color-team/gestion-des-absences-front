@@ -1,5 +1,5 @@
 export interface JFerieRtt {
-  id: number;
+  id?: number;
   date: Date;
   type: string;
   jour?: string;
