@@ -75,6 +75,8 @@ export class VisualisationAbsenceComponent implements OnInit {
     );
     this.getListAbs();
     this.dataServ2.currentBooleanAlert.subscribe(v => this.success = v);
+
+    this.alertDisappear();
   }
 
   supprAbs(uuid: string): void {
@@ -98,5 +100,9 @@ export class VisualisationAbsenceComponent implements OnInit {
 
     const modalRef = this.modalService.open(NgbdModalContentComponent);
     modalRef.componentInstance.name = 'ModificationAbsence';
+  }
+
+  alertDisappear(): void {
+    setTimeout(() => this.success = false, 2500);
   }
 }
