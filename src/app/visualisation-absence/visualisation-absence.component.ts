@@ -33,7 +33,7 @@ import { AuthService } from '../auth/auth.service';
   `,
   styles: ['.alert-danger { margin-top: 6px; padding-top: 6px; padding-bottom: 6px; padding-left: 12px; padding-right:12px}']
 })
-export class NgbdModalContentComponent implements OnInit {
+export class NgbdModalAbsComponent implements OnInit {
 
   collegueConnecte: Collegue;
   absence: Absence;
@@ -92,7 +92,7 @@ export class VisualisationAbsenceComponent implements OnInit {
   select(abs: Absence): void {
     this.dataServ.changeMessage(abs);
 
-    const modalRef = this.modalService.open(NgbdModalContentComponent);
+    const modalRef = this.modalService.open(NgbdModalAbsComponent);
     modalRef.componentInstance.name = 'ModificationAbsence';
   }
 }

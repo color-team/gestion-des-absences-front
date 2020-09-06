@@ -1,47 +1,80 @@
 import { JFerieRtt } from './../models/JFerieRtt';
 import { Component, OnInit } from '@angular/core';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { AjoutJourFerieRttService } from './ajout-jour-ferie-rtt.service';
+import { Type } from '../models/Type';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './ajout-jour-ferie-rtt.component.html',
   styleUrls: ['./ajout-jour-ferie-rtt.component.scss']
 })
 export class AjoutJourFerieRttComponent implements OnInit {
-
   model: NgbDateStruct;
-  boolAlert: boolean;
   listType: string[];
+  minDate: NgbDateStruct;
 
-  constructor(private router: Router, private dataServ: AjoutJourFerieRttService) { }
+  ajoutForm: FormGroup;
+
+  afficherErreur: boolean;
+
+  constructor(private router: Router, private dataServ: AjoutJourFerieRttService, private calendar: NgbCalendar) { }
 
   ngOnInit(): void {
-    this.boolAlert = false;
-    this.listType = [];
+    this.listType = Object.values(Type);
+    this.minDate = this.calendar.getToday();
+    this.afficherErreur = false;
 
-    this.dataServ.getListType().subscribe(
-      v => this.listType = v,
-      err => { },
-      () => { }
-    );
+    this.ajoutForm = new FormGroup({
+      date: new FormControl('', [Validators.required]),
+      commentaire: new FormControl(''),
+      typeJ: new FormControl('', [Validators.required])
+    });
+  }
+  get date() { return this.ajoutForm.get('date'); }
+  get typeJ() { return this.ajoutForm.get('typeJ'); }
+  get commentaire() { return this.ajoutForm.get('commentaire'); }
+
+  comRequis() {
+    if (this.typeJ.value === Type.TYPE_FERIE) {
+      this.commentaire.setValidators([Validators.required]);
+      this.commentaire.updateValueAndValidity();
+    }
+    else {
+      this.commentaire.clearValidators();
+      this.commentaire.updateValueAndValidity();
+    }
   }
 
   retour(): void {
     this.router.navigate(['/jferiev']);
   }
 
-  ajouterJFerieRtt(d: Date, t: string, c: string) {
+  ajouterJFerieRtt() {
+
     const jFerieRtt: JFerieRtt = {
-      date: d,
-      type: t,
-      commentaire: c
+      date: this.date.value,
+      type: Object.keys(Type).find(v => Type[v] === this.typeJ.value),
+      commentaire: this.commentaire.value
     };
 
-    this.dataServ.postJFerieRtt(jFerieRtt).subscribe(
-      () => { this.retour(); },
-      err => { this.boolAlert = true; },
-      () => { }
-    );
+    console.log(this.date.value);
+    console.log(this.typeJ.value);
+    console.log(this.commentaire.value);
+    console.log(this.ajoutForm.valid);
+
+    if (this.ajoutForm.valid) {
+      this.dataServ.postJFerieRtt(jFerieRtt).subscribe(
+        () => { this.retour(); },
+        err => { console.log(err); },
+        () => { }
+      );
+      console.log('hop c\'est envoyé');
+      this.retour();
+    }
+    else {
+      this.afficherErreur = true;
+    }
   }
 }

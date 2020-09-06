@@ -1,13 +1,13 @@
-import { JourFerieRtt } from './../models/JourFerieRtt';
-import {HttpClient } from '@angular/common/http';
+import { JFerieRtt } from './../models/JFerieRtt';
+import { HttpClient } from '@angular/common/http';
 import { Absence } from './../models/Absence';
 import { Component, OnInit } from '@angular/core';
-import {CalendarOptions} from '@fullcalendar/angular';
+import { CalendarOptions } from '@fullcalendar/angular';
 import frLocale from '@fullcalendar/core/locales/fr';
 import { Observable, from } from 'rxjs';
 import { Collegue } from './../auth/auth.domains';
 import { AuthService } from '../auth/auth.service';
-import {PlanningDesAbsencesService} from './planning-des-absences.service';
+import { PlanningDesAbsencesService } from './planning-des-absences.service';
 
 @Component({
   selector: 'app-planning-des-absences',
@@ -17,7 +17,7 @@ import {PlanningDesAbsencesService} from './planning-des-absences.service';
 export class PlanningDesAbsencesComponent implements OnInit {
 
   listAbsCoupleMoisAnnée: Absence[];
-  listJFerieRtt: JourFerieRtt[];
+  listJFerieRtt: JFerieRtt[];
   collegueConnecte: Observable<Collegue>;
 
   constructor(private authSrv: AuthService, private dataServPlanAbs: PlanningDesAbsencesService) { }

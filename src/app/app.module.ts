@@ -14,15 +14,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { StatutConnecteService } from './auth/statut-connecte.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemandeAbsenceComponent } from './demande-absence/demande-absence.component';
-import { VisualisationAbsenceComponent, NgbdModalContentComponent } from './visualisation-absence/visualisation-absence.component';
+import { VisualisationAbsenceComponent, NgbdModalAbsComponent } from './visualisation-absence/visualisation-absence.component';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
-import { VisualisationJferieComponent } from './visualisation-jferie/visualisation-jferie.component';
+import { VisualisationJferieComponent, NgbdModalJFerieRttComponent } from './visualisation-jferie/visualisation-jferie.component';
 import { AjoutJourFerieRttComponent } from './ajout-jour-ferie-rtt/ajout-jour-ferie-rtt.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -37,7 +37,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TechComponent,
     DemandeAbsenceComponent,
     VisualisationAbsenceComponent,
-    NgbdModalContentComponent,
+    NgbdModalAbsComponent,
+    NgbdModalJFerieRttComponent,
     MenuEmployeComponent,
     MenuManagerComponent,
     MenuAdministrateurComponent,
@@ -51,7 +52,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     HttpClientModule,
     FormsModule,
     NgbModule,
-    FullCalendarModule
+    FullCalendarModule,
+    ReactiveFormsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
