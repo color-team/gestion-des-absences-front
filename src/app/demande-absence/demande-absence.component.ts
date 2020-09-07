@@ -31,7 +31,7 @@ export class DemandeAbsenceComponent implements OnInit {
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
-  minDate = undefined;
+  minDate: NgbDate;
   // tslint:disable-next-line: max-line-length
   constructor(private router: Router, private formBuilder: FormBuilder, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
     this.fromDate = calendar.getNext(calendar.getToday());
