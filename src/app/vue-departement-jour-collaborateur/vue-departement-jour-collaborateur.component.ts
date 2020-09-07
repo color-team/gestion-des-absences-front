@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Collegue } from '../auth/auth.domains';
 import { Absence } from '../models/Absence';
 import { JourFerieRtt } from '../models/JourFerieRtt'
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-vue-departement-jour-collaborateur',
@@ -10,8 +11,8 @@ import { JourFerieRtt } from '../models/JourFerieRtt'
 })
 export class VueDepartementJourCollaborateurComponent implements OnInit {
 
-  listCollaborateurs: Collegue[];
-  listeJourFeriesRTTEmployeur: JourFerieRtt[];
+  listCollaborateursDepartement: Collegue[];
+  listeJourFeriesRTTEmployeurMoisAnnee: JourFerieRtt[];
   listAbsencesAAfficher: Absence[];
 
 
