@@ -1,24 +1,27 @@
 <ng-container *ngIf="collegueConnecte | async as col">
-  <main class="container">
-    <div class="lead" *ngIf="!col.estAnonyme()">
-      <div id="jumbAppCompo" class="jumbotron">
-        <h1 class="display-4">Super Application</h1>
 
-        <p>Utilisateur connecté : {{col.email}}</p>
+  <div class="lead" *ngIf="!col.estAnonyme()">
+    <div id="jumbAppCompo" class="jumbotron">
+      <h3 class="display-4">Super Application</h3>
+    </div>
 
-        <p>Les rôles :</p>
-        <ul>
-          <li *ngFor="let r of col.roles">{{r}}</li>
-        </ul>
-        <div class="row">
-          <button class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
-        </div>
-      </div>
+    <div class="d-flex justify-content-between">
       <app-menu-employe *ngIf="col.estEmploye()"></app-menu-employe>
       <app-menu-manager *ngIf="col.estManager()"></app-menu-manager>
       <app-menu-administrateur *ngIf="col.estAdmin()"></app-menu-administrateur>
-    </div>
 
+
+      <label class="align-middle" id="iconeclick" (click)="seDeconnecter()"> Se déconnecter
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-power" fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M5.578 4.437a5 5 0 1 0 4.922.044l.5-.866a6 6 0 1 1-5.908-.053l.486.875z" />
+          <path fill-rule="evenodd" d="M7.5 8V1h1v7h-1z" />
+        </svg>
+      </label>
+
+    </div>
+  </div>
+  <main class="container">
     <router-outlet></router-outlet>
   </main>
 </ng-container>

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Absence } from '../models/Absence';
-import { Collegue } from '../auth/auth.domains';
 
 // pour le post
 const httpOptions = {
@@ -18,6 +17,9 @@ const httpOptions = {
 })
 export class ServiceVisuService {
 
+  private messageSource = new BehaviorSubject(null);
+  currentMessage = this.messageSource.asObservable();
+
   constructor(private http: HttpClient) { }
 
   getListAbsences(): Observable<Absence[]> {
@@ -26,5 +28,9 @@ export class ServiceVisuService {
 
   supprAbsence(uuid: string): Observable<void> {
     return this.http.delete<void>(`${environment.baseUrl}${environment.apiAbsences}/${uuid}`, { withCredentials: true });
+  }
+
+  changeMessage(abs: Absence): void {
+    this.messageSource.next(abs);
   }
 }

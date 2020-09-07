@@ -1,7 +1,7 @@
 <h2>Demande d'absences</h2>
 <br>
-
-<form>
+<div *ngIf="erreur" class="alert alert-danger">Vous ne pouvez pas ajouter d'absence(s) à ces jours.</div>
+<form [formGroup]="form" >
   <!-- ==================================DATE ===================================================-->
   <div class="row justify-content-start">
     <div class="form-group hidden">
@@ -17,6 +17,7 @@
           [dayTemplate]="t"
           outsideDays="hidden"
           [startDate]="fromDate!"
+          [minDate]="minDate"
         />
         <ng-template #t let-date let-focused="focused">
           <span
@@ -39,7 +40,7 @@
         <input
           #dpFromDate
           class="form-control"
-          placeholder="yyyy-mm-dd"
+          placeholder="dd-mm-yyyy"
           name="dpFromDate"
           [value]="formatter.format(fromDate)"
           (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
@@ -60,7 +61,7 @@
         <input
           #dpToDate
           class="form-control"
-          placeholder="yyyy-mm-dd"
+          placeholder="dd-mm-yyyy"
           name="dpToDate"
           [value]="formatter.format(toDate)"
           (input)="toDate = validateInput(toDate, dpToDate.value)"
@@ -81,8 +82,8 @@
   <div class="row justify-content-start">
     <div class="form-group">
       <label for="exampleFormControlSelect1">Type de congé</label>
-      <select class="form-control" id="exampleFormControlSelect1"  #selectType>
-        <option *ngFor="let item of listTypeEnum">{{item}}</option>
+      <select class="form-control" id="exampleFormControlSelect1"  (change)="motifDisplay(selectType)" #selectType>
+        <option *ngFor="let item of listTypeEnum" [ngValue]=item>{{item}}</option>
       </select>
     </div>
   </div>
@@ -90,13 +91,18 @@
   <br />
 
   <!-- ======================================MOTIF===================================================-->
-  <div class="form-group row justify-content-start">
+  <div class="form-group row justify-content-start" [hidden]="motifMasquee">
     <label for="exampleFormControlTextarea1">Motif</label>
     <textarea
+    formControlName="motif"
       class="form-control"
       id="exampleFormControlTextarea1"
-      rows="3"
+      rows="3" [ngClass]="{ 'is-invalid': submitted && formControl.motif.errors }"
     #motif></textarea>
+    <div *ngIf="submitted && formControl.motif.errors" class="invalid-feedback">
+      <div *ngIf="formControl.motif.errors.required">Le motif est requis</div>
+      <div *ngIf="formControl.motif.errors.minlength">Le motif doit comporter au mois 3 caractères</div>
+    </div>
   </div>
   <br/>
 
@@ -104,10 +110,10 @@
   <button type="button" class="btn btn-primary row justify-content-start enregistrer" (click)="creerAbsence(dpFromDate.value,dpToDate.value,selectType.value,motif.value)">Enregistrer</button>
   <button type="button" class="btn btn-danger" routerLink="/absv">Annuler</button>
 
-
-
 </form>
 
-<!--<hr />
+
+
+<!--<hr/>
 <pre>From date model: {{ fromDate | json }}</pre>
 <pre>To date model: {{ toDate | json }}</pre>-->

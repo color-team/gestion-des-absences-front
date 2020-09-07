@@ -1,8 +1,5 @@
 export interface JourFerieRtt {
-
-    date: Date;
-    type: string;
-    commentaire: string;
-    
-
+  date: Date;
+  TypeFerieRtt: string;
+  commentaire: string;
 }
