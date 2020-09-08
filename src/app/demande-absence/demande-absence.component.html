@@ -1,33 +1,18 @@
 <h2>Demande d'absences</h2>
 <br>
 <div *ngIf="erreur" class="alert alert-danger">Vous ne pouvez pas ajouter d'absence(s) à ces jours.</div>
-<form [formGroup]="form" >
+<form [formGroup]="form">
   <!-- ==================================DATE ===================================================-->
   <div class="row justify-content-start">
     <div class="form-group hidden">
       <div class="input-group">
-        <input
-          name="datepicker"
-          class="form-control"
-          ngbDatepicker
-          #datepicker="ngbDatepicker"
-          [autoClose]="'outside'"
-          (dateSelect)="onDateSelection($event)"
-          [displayMonths]="2"
-          [dayTemplate]="t"
-          outsideDays="hidden"
-          [startDate]="fromDate!"
-          [minDate]="minDate"
-        />
+        <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker" [autoClose]="'outside'"
+          (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
+          [startDate]="fromDate!" [minDate]="minDate" />
         <ng-template #t let-date let-focused="focused">
-          <span
-            class="custom-day"
-            [class.focused]="focused"
-            [class.range]="isRange(date)"
-            [class.faded]="isHovered(date) || isInside(date)"
-            (mouseenter)="hoveredDate = date"
-            (mouseleave)="hoveredDate = null"
-          >
+          <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+            [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+            (mouseleave)="hoveredDate = null">
             {{ date.day }}
           </span>
         </ng-template>
@@ -37,20 +22,10 @@
 
     <div class="form-group">
       <div class="input-group">
-        <input
-          #dpFromDate
-          class="form-control"
-          placeholder="dd-mm-yyyy"
-          name="dpFromDate"
-          [value]="formatter.format(fromDate)"
-          (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
-        />
+        <input #dpFromDate class="form-control" placeholder="dd-mm-yyyy" name="dpFromDate"
+          [value]="formatter.format(fromDate)" (input)="fromDate = validateInput(fromDate, dpFromDate.value)" />
         <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary calendar"
-            (click)="datepicker.toggle()"
-            type="button"
-          >
+          <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
             <i class="fa fa-calendar fa-5x" aria-hidden="true"></i>
           </button>
         </div>
@@ -58,20 +33,10 @@
     </div>
     <div class="form-group ml-2">
       <div class="input-group">
-        <input
-          #dpToDate
-          class="form-control"
-          placeholder="dd-mm-yyyy"
-          name="dpToDate"
-          [value]="formatter.format(toDate)"
-          (input)="toDate = validateInput(toDate, dpToDate.value)"
-        />
+        <input #dpToDate class="form-control" placeholder="dd-mm-yyyy" name="dpToDate"
+          [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)" />
         <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary calendar"
-            (click)="datepicker.toggle()"
-            type="button"
-          ></button>
+          <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
         </div>
       </div>
     </div>
@@ -82,7 +47,8 @@
   <div class="row justify-content-start">
     <div class="form-group">
       <label for="exampleFormControlSelect1">Type de congé</label>
-      <select formControlName="selectType" class="form-control" id="exampleFormControlSelect1"  (change)="motifDisplay()" [ngClass]="{ 'is-invalid': submitted && selectType.errors }">
+      <select formControlName="selectType" class="form-control" id="exampleFormControlSelect1" (change)="motifDisplay()"
+        [ngClass]="{ 'is-invalid': submitted && selectType.errors }">
         <option *ngFor="let item of listTypeEnum" [ngValue]=item>{{item}}</option>
       </select>
       <div *ngIf="submitted && selectType.errors" class="invalid-feedback">
@@ -96,21 +62,19 @@
   <!-- ======================================MOTIF===================================================-->
   <div class="form-group row justify-content-start w-50" [hidden]="motifMasquee">
     <label for="exampleFormControlTextarea1">Motif</label>
-    <textarea
-    formControlName="motif"
-      class="form-control"
-      id="exampleFormControlTextarea1"
-      rows="3" [ngClass]="{ 'is-invalid': submitted && motif.errors }">
+    <textarea formControlName="motif" class="form-control" id="exampleFormControlTextarea1" rows="3"
+      [ngClass]="{ 'is-invalid': submitted && motif.errors }">
     </textarea>
     <div *ngIf="submitted && motif.errors" class="invalid-feedback">
       <div *ngIf="motif.errors.required">Le motif est requis</div>
       <div *ngIf="motif.errors.minlength">Le motif doit comporter au mois 3 caractères</div>
     </div>
   </div>
-  <br/>
+  <br />
 
 
-  <button type="button" class="btn btn-primary row justify-content-start enregistrer" (click)="creerAbsence(dpFromDate.value,dpToDate.value)">Enregistrer</button>
-  <button type="button" class="btn btn-danger" routerLink="/absv">Annuler</button>
+  <button type="button" class="btn btn-primary row justify-content-start enregistrer"
+    (click)="creerAbsence(dpFromDate.value,dpToDate.value)">Enregistrer</button>
+  <button type="button" class="btn btn-danger" (click)="retour()">Annuler</button>
 
 </form>

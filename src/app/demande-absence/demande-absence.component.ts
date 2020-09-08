@@ -41,7 +41,7 @@ export class DemandeAbsenceComponent implements OnInit {
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date ) {
+    } else if (this.fromDate && !this.toDate && date) {
       this.toDate = date;
     } else {
       this.toDate = null;
@@ -96,9 +96,9 @@ export class DemandeAbsenceComponent implements OnInit {
 
     this.submitted = true;
 
-      // stop here if form is invalid
+    // stop here if form is invalid
     if (this.form.invalid) {
-          return;
+      return;
     }
 
     const newAbsence: Absence = {
@@ -107,7 +107,7 @@ export class DemandeAbsenceComponent implements OnInit {
       type: this.selectType.value,
       motif: this.motif.value
 
-      };
+    };
 
     this.dataServ.postAbsence(newAbsence).subscribe(
       () => { this.redirection(); },
@@ -138,6 +138,11 @@ export class DemandeAbsenceComponent implements OnInit {
 
   redirection(): void {
     this.dataServ.changeBooleanAlert(true);
+    this.router.navigate(['/absv']);
+  }
+
+  retour() {
+    this.dataServ.changeBooleanAlert(false);
     this.router.navigate(['/absv']);
   }
 

@@ -162,8 +162,7 @@ import { Router } from '@angular/router';
   }
 `]
 })
-
-export class NgbdModalContentComponent implements OnInit {
+export class NgbdModalAbsComponent implements OnInit {
 
   collegueConnecte: Collegue;
   absence: Absence;
@@ -253,13 +252,14 @@ export class NgbdModalContentComponent implements OnInit {
     this.motifDisplay();
     this.motif.setValue(this.absence.motif);
 
+    /*
     console.log(this.absence.dateDebut);
     console.log(this.absence.dateFin);
     console.log(typeof (this.absence.dateDebut));
     console.log(this.fromDate);
-
+    */
     const dateBack: NgbDate = new NgbDate(this.absence.dateDebut.year, this.absence.dateDebut.month, this.absence.dateDebut.day);
-    console.log(dateBack);
+    // console.log(dateBack);
 
 
     this.fromDate = this.absence.dateDebut;
@@ -286,9 +286,7 @@ export class NgbdModalContentComponent implements OnInit {
       type: this.selectType.value
     };
 
-    console.log(updateAbsence.type);
     if (updateAbsence.type !== 'TYPE_CONGE_SANS_SOLDE') {
-      console.log('je suis la');
       updateAbsence.motif = '';
     }
     else {
@@ -297,7 +295,7 @@ export class NgbdModalContentComponent implements OnInit {
 
     this.dataServ2.updateAbsence(updateAbsence).subscribe(
       () => { this.activeModal.dismiss(); },
-      err => { console.log('ça marche pas'); },
+      err => { },
       () => { }
     );
   }
@@ -345,6 +343,7 @@ export class VisualisationAbsenceComponent implements OnInit {
     this.getListAbs();
     this.dataServ2.currentBooleanAlert.subscribe(v => this.success = v);
 
+
     this.alertDisappear();
   }
 
@@ -367,7 +366,7 @@ export class VisualisationAbsenceComponent implements OnInit {
   select(abs: Absence): void {
     this.dataServ.changeMessage(abs);
 
-    const modalRef = this.modalService.open(NgbdModalContentComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(NgbdModalAbsComponent);
     modalRef.componentInstance.name = 'ModificationAbsence';
   }
 
