@@ -20,6 +20,7 @@ import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
+// tslint:disable-next-line: max-line-length
 import { VueDepartementJourCollaborateurComponent } from './vue-departement-jour-collaborateur/vue-departement-jour-collaborateur.component';
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
 import { VisualisationJferieComponent, NgbdModalJFerieRttComponent } from './visualisation-jferie/visualisation-jferie.component';
@@ -64,10 +65,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     useClass: AuthInterceptorService,
     multi: true,
   },
- /* {
-    provide: NgbDateParserFormatter,
-    useClass: NgbDateCustomParserFormatter
-  }*/],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
