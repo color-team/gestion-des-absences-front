@@ -25,7 +25,7 @@ export class VueSynthetiqueComponent implements OnInit {
   }
 
   redirectionVueDep() {
-    this.router.navigate(['/absv']);
+    this.router.navigate(['/visuColDepMoisAnnee']);
   }
 
   redirectionHisto() {

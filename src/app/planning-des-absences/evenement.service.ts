@@ -1,4 +1,4 @@
-import { JourFerieRtt } from './../models/JourFerieRtt';
+import { JFerieRtt } from './../models/JFerieRtt';
 import { Evenement } from './../models/Evenement';
 import { Injectable } from '@angular/core';
 import { PlanningDesAbsencesComponent } from './planning-des-absences.component';
