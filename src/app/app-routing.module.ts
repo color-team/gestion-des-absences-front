@@ -1,3 +1,4 @@
+import { VueSynthetiqueComponent } from './vue-synthetique/vue-synthetique.component';
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
 import { DemandeAbsenceComponent } from './demande-absence/demande-absence.component';
 import { VisualisationAbsenceComponent } from './visualisation-absence/visualisation-absence.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'absd', component: DemandeAbsenceComponent },
   { path: 'absp', component: PlanningDesAbsencesComponent },
   { path: 'jferiev', component: VisualisationJferieComponent },
+  { path: 'vuesynthetique', component: VueSynthetiqueComponent },
   { path: '', redirectTo: '/tech', pathMatch: 'full' }
 ];
 

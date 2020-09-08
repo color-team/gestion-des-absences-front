@@ -23,6 +23,7 @@ import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
 import { VisualisationJferieComponent } from './visualisation-jferie/visualisation-jferie.component';
+import { VueSynthetiqueComponent } from './vue-synthetique/vue-synthetique.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -41,7 +42,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MenuManagerComponent,
     MenuAdministrateurComponent,
     PlanningDesAbsencesComponent,
-    VisualisationJferieComponent
+    VisualisationJferieComponent,
+    VueSynthetiqueComponent
   ],
   imports: [
     BrowserModule,
