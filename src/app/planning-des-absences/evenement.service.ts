@@ -22,10 +22,10 @@ getListAbsence(listAbsCoupleMoisAnnee: Absence[]
 
     listAbsCoupleMoisAnnee.forEach(element => {
       let evenement: Evenement;
-      var resDeb = element.dateDebut.split('-');
-      var startDate: NgbDate = new NgbDate(parseInt(resDeb[0]), parseInt(resDeb[1]), parseInt(resDeb[2]));
-      var resFin = element.dateDebut.split('-');
-      var endDate: NgbDate = new NgbDate(parseInt(resFin[0]), parseInt(resFin[1]), parseInt(resFin[2]));
+      const resDeb = element.dateDebut.split('-');
+      const startDate: NgbDate = new NgbDate(parseInt(resDeb[0], 0), parseInt(resDeb[1], 0), parseInt(resDeb[2], 0));
+      const resFin = element.dateDebut.split('-');
+      const endDate: NgbDate = new NgbDate(parseInt(resFin[0], 0), parseInt(resFin[1], 0), parseInt(resFin[2], 0));
       evenement = new Evenement(element.type, startDate, endDate);
       this.evenements.push(evenement);
     });
