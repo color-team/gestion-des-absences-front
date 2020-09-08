@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+  <h1>Vues synthétiques</h1>
+</div>
+<br />
+
+<div class="row justify-content-center">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Liste des rapports</th>
+        <th scope="col" style="width: 210px">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Vue par département par jour et par collaborateur</td>
+        <td>
+          <div class="d-flex justify-content-start">
+            <div class="p-2 bd-highlight" id="curseur-pointeur">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-eye-fill"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                (click)= "redirectionVueDep()"
+              >
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"
+                />
+              </svg>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Histogramme par département et par jour</td>
+        <td>
+          <div class="d-flex justify-content-start">
+            <div class="p-2 bd-highlight" id="curseur-pointeur">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-eye-fill"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                (click)= "redirectionHisto()"
+              >
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                <path
+                  fill-rule="evenodd"
+                  d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"
+                />
+              </svg>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

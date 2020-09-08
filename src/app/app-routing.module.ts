@@ -1,3 +1,5 @@
+import { VueSynthetiqueComponent } from './vue-synthetique/vue-synthetique.component';
+
 import { AjoutJourFerieRttComponent } from './ajout-jour-ferie-rtt/ajout-jour-ferie-rtt.component';
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
 import { DemandeAbsenceComponent } from './demande-absence/demande-absence.component';
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'jferied', component: AjoutJourFerieRttComponent, canActivate: [StatutConnecteService] },
   { path: 'validation', component: ValidationDemandeComponent, canActivate: [StatutConnecteService] },
   { path: 'visuColDepMoisAnnee', component: VueDepartementJourCollaborateurComponent },
+  { path: 'vuesynthetique', component: VueSynthetiqueComponent },
   { path: '', redirectTo: '/tech', pathMatch: 'full' }
 ];
 

@@ -11,5 +11,6 @@ export const config = {
   apiTypeEnum: 'typeenum',
   apiAbsences: 'absences',
   apiJFerieRtt: 'jferiesrtt',
-  apiDepartement: 'departement'
+  apiDepartement: 'departement',
+  apiTraitementNuit: 'traitementdenuit'
 };
