@@ -48,7 +48,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     VueDepartementJourCollaborateurComponent,
     PlanningDesAbsencesComponent,
     VisualisationJferieComponent,
-    VueSynthetiqueComponent
+    VueSynthetiqueComponent,
     AjoutJourFerieRttComponent,
     ValidationDemandeComponent
 

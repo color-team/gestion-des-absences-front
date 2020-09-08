@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Collegue } from '../auth/auth.domains';
 import { Absence } from '../models/Absence';
-import { JourFerieRtt } from '../models/JourFerieRtt'
+import { JFerieRtt } from '../models/JFerieRtt'
 import { AuthService } from '../auth/auth.service';
 import { VdjcServiceService } from './vdjc-service.service'
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 export class VueDepartementJourCollaborateurComponent implements OnInit {
 
   listCollaborateursDepartement: Collegue[];
-  listeJourFeriesRTTEmployeurMoisAnnee: JourFerieRtt[];
+  listeJourFeriesRTTEmployeurMoisAnnee: JFerieRtt[];
   listAbsencesAAfficher: Absence[];
   departements: string[];
   defaultDepartement: string;
