@@ -22,6 +22,9 @@ import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
 import { VisualisationJferieComponent } from './visualisation-jferie/visualisation-jferie.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -48,7 +51,12 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     HttpClientModule,
     FormsModule,
     NgbModule,
-    FullCalendarModule
+    FullCalendarModule,
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
