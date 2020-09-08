@@ -102,8 +102,8 @@ export class DemandeAbsenceComponent implements OnInit {
     }
 
     const newAbsence: Absence = {
-      dateDebut: dpFromDate,
-      dateFin: dpToDate,
+      dateDebut: dpFromDate.year + '-' + dpFromDate.month + '-' + dpFromDate.day,
+      dateFin: dpToDate.year + '-' + dpToDate.month + '-' + dpToDate.day,
       type: this.selectType.value,
       motif: this.motif.value
 

@@ -252,26 +252,25 @@ export class NgbdModalAbsComponent implements OnInit {
     this.motifDisplay();
     this.motif.setValue(this.absence.motif);
 
-    /*
+
+    /*console.log(this.absence.dateDebut);
+
     console.log(this.absence.dateDebut);
     console.log(this.absence.dateFin);
     console.log(typeof (this.absence.dateDebut));
-    console.log(this.fromDate);
-    */
-    const dateBack: NgbDate = new NgbDate(this.absence.dateDebut.year, this.absence.dateDebut.month, this.absence.dateDebut.day);
-    // console.log(dateBack);
+    console.log(this.fromDate);*/
 
 
-    this.fromDate = this.absence.dateDebut;
-    // this.fromDate = new NgbDate(this.absence.dateDebut.year, this.absence.dateDebut.month, this.absence.dateDebut.day);
-    this.toDate = this.absence.dateFin;
+    var resDeb = this.absence.dateDebut.split('-');
+    this.fromDate = new NgbDate(parseInt(resDeb[0]), parseInt(resDeb[1]), parseInt(resDeb[2]));
+    var resFin = this.absence.dateFin.split('-');
+    this.toDate = new NgbDate(parseInt(resFin[0]), parseInt(resFin[1]), parseInt(resFin[2]));
   }
 
   get selectType() { return this.form.get('selectType'); }
   get motif() { return this.form.get('motif'); }
 
-  modifierAbs(dpFromDate: NgbDate, dpToDate: NgbDate): void {
-
+  modifierAbs(dpFromDate: string, dpToDate: string): void {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -366,7 +365,7 @@ export class VisualisationAbsenceComponent implements OnInit {
   select(abs: Absence): void {
     this.dataServ.changeMessage(abs);
 
-    const modalRef = this.modalService.open(NgbdModalAbsComponent);
+    const modalRef = this.modalService.open(NgbdModalAbsComponent, {size: 'lg'});
     modalRef.componentInstance.name = 'ModificationAbsence';
   }
 
