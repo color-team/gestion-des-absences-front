@@ -1,3 +1,4 @@
+import { Status, TypeA } from './../models/Type';
 import { JFerieRtt } from './../models/JFerieRtt';
 import { Collegue } from './../auth/auth.domains';
 import { ServiceVisuService } from './service-visu.service';
@@ -8,6 +9,7 @@ import { AuthService } from '../auth/auth.service';
 import { DemandeAbsenceService } from '../demande-absence/demande-absence.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Type } from '../models/Type';
 
 @Component({
   selector: 'app-ngbd-modal-content',
@@ -371,5 +373,13 @@ export class VisualisationAbsenceComponent implements OnInit {
 
   alertDisappear(): void {
     setTimeout(() => this.success = false, 2500);
+  }
+
+  convertT(type: string): string {
+    return TypeA[type];
+  }
+
+  convertS(status: string): string {
+    return Status[status];
   }
 }
