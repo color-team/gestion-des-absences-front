@@ -2,22 +2,20 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { JFerieRtt } from './../models/JFerieRtt';
 import { Evenement } from './../models/Evenement';
 import { Injectable } from '@angular/core';
-import { PlanningDesAbsencesComponent } from './planning-des-absences.component';
 import { Absence } from '../models/Absence';
-import { EventSourceInput } from '@fullcalendar/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EvenementService {
 
-evenements: Evenement[];
+  evenements: Evenement[];
 
-constructor() { }
+  constructor() { }
 
 
-getListAbsence(listAbsCoupleMoisAnnee: Absence[]
-  ){
+  getListAbsence(listAbsCoupleMoisAnnee: Absence[]
+  ) {
     this.evenements = [];
 
     listAbsCoupleMoisAnnee.forEach(element => {
