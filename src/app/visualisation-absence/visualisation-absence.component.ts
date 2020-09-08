@@ -1,3 +1,4 @@
+import { JFerieRtt } from './../models/JFerieRtt';
 import { Collegue } from './../auth/auth.domains';
 import { ServiceVisuService } from './service-visu.service';
 import { NgbActiveModal, NgbModal, NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -18,37 +19,37 @@ import { Router } from '@angular/router';
       </button>
     </div>
     <div class="modal-body">
-    <form [formGroup]="form" >
-  <!-- ==================================DATE ===================================================-->
-  <div class="row justify-content-start">
-    <div class="form-group hidden">
-      <div class="input-group">
-        <input
-          name="datepicker"
-          class="form-control"
-          ngbDatepicker
-          #datepicker="ngbDatepicker"
-          [autoClose]="'outside'"
-          (dateSelect)="onDateSelection($event)"
-          [displayMonths]="2"
-          [dayTemplate]="t"
-          outsideDays="hidden"
-          [startDate]="fromDate!"
-          [minDate]="minDate"
-        />
-        <ng-template #t let-date let-focused="focused">
-          <span
-            class="custom-day"
-            [class.focused]="focused"
-            [class.range]="isRange(date)"
-            [class.faded]="isHovered(date) || isInside(date)"
-            (mouseenter)="hoveredDate = date"
-            (mouseleave)="hoveredDate = null"
-          >
-            {{ date.day }}
-          </span>
-        </ng-template>
-      </div>
+      <form [formGroup]="form" >
+        <!-- ==================================DATE ===================================================-->
+        <div class="row justify-content-start decal">
+          <div class="form-group hidden">
+            <div class="input-group">
+              <input
+                name="datepicker"
+                class="form-control"
+                ngbDatepicker
+                #datepicker="ngbDatepicker"
+                [autoClose]="'outside'"
+                (dateSelect)="onDateSelection($event)"
+                [displayMonths]="2"
+                [dayTemplate]="t"
+                outsideDays="hidden"
+                [startDate]="fromDate!"
+                [minDate]="minDate"
+              />
+              <ng-template #t let-date let-focused="focused">
+                <span
+                  class="custom-day"
+                  [class.focused]="focused"
+                  [class.range]="isRange(date)"
+                  [class.faded]="isHovered(date) || isInside(date)"
+                  (mouseenter)="hoveredDate = date"
+                  (mouseleave)="hoveredDate = null"
+                >
+                  {{ date.day }}
+                </span>
+              </ng-template>
+            </div>
     </div>
     <!-- ==================================DATE ===================================================-->
 
@@ -61,6 +62,7 @@ import { Router } from '@angular/router';
           name="dpFromDate"
           [value]="formatter.format(fromDate)"
           (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+          readonly
         />
         <div class="input-group-append">
           <button
@@ -82,6 +84,7 @@ import { Router } from '@angular/router';
           name="dpToDate"
           [value]="formatter.format(toDate)"
           (input)="toDate = validateInput(toDate, dpToDate.value)"
+          readonly
         />
         <div class="input-group-append">
           <button
@@ -96,11 +99,10 @@ import { Router } from '@angular/router';
 
   <!-- ======================================TYPE===================================================-->
 
-  <div class="row justify-content-start">
+  <div class="row justify-content-start decal">
     <div class="form-group">
       <label for="exampleFormControlSelect1">Type de congé</label>
-      <select class="form-control" id="exampleFormControlSelect1"  (change)="motifDisplay(selectType)" #selectType>
-        <!--<option value="">{{absence.type}}</option>-->
+      <select formControlName="selectType" class="form-control" id="exampleFormControlSelect1"  (change)="motifDisplay()">
         <option *ngFor="let item of listTypeEnum" [ngValue]=item>{{item}}</option>
       </select>
     </div>
@@ -109,24 +111,24 @@ import { Router } from '@angular/router';
   <br />
 
   <!-- ======================================MOTIF===================================================-->
-  <div class="form-group row justify-content-start w-75" [hidden]="motifMasquee">
+  <div class="form-group row justify-content-start w-75 decal" [hidden]="motifMasquee">
     <label for="exampleFormControlTextarea1">Motif</label>
     <textarea
     formControlName="motif"
       class="form-control"
       id="exampleFormControlTextarea1"
-      rows="3" [ngClass]="{ 'is-invalid': submitted && formControl.motif.errors }"
-    #motif>{{absence.motif}}</textarea>
-    <div *ngIf="submitted && formControl.motif.errors" class="invalid-feedback">
-      <div *ngIf="formControl.motif.errors.required">Le motif est requis</div>
-      <div *ngIf="formControl.motif.errors.minlength">Le motif doit comporter au mois 3 caractères</div>
+      rows="3" [ngClass]="{ 'is-invalid': submitted && motif.errors }">
+    </textarea>
+    <div *ngIf="submitted && motif.errors" class="invalid-feedback">
+      <div *ngIf="motif.errors.required">Le motif est requis</div>
+      <div *ngIf="motif.errors.minlength">Le motif doit comporter au mois 3 caractères</div>
     </div>
   </div>
 </form>
 
     </div>
     <div class="modal-footer">
-      <button type="button" ngbAutofocus class="btn btn-sm btn-primary" (click)="modifierAbs(dpFromDate.value,dpToDate.value,selectType.value,motif.value)">Modifier</button>
+      <button type="button" ngbAutofocus class="btn btn-sm btn-primary" (click)="modifierAbs(dpFromDate.value,dpToDate.value)">Modifier</button>
       <button type="button" class="btn btn-sm btn-danger" (click)="activeModal.dismiss('Annuler')">Annuler</button>
     </div>
   `,
@@ -154,6 +156,10 @@ import { Router } from '@angular/router';
   .custom-day.faded {
     background-color: rgba(2, 117, 216, 0.5);
   }
+
+  .decal {
+    margin-left: 15px;
+  }
 `]
 })
 
@@ -170,8 +176,6 @@ export class NgbdModalContentComponent implements OnInit {
 
   newAbsence: Absence;
 
-  updateAbsence: Absence;
-
   motifMasquee = true;
 
   hoveredDate: NgbDate | null = null;
@@ -186,7 +190,7 @@ export class NgbdModalContentComponent implements OnInit {
     this.fromDate = calendar.getNext(calendar.getToday());
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.minDate = calendar.getNext(calendar.getToday());
-   }
+  }
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
@@ -226,7 +230,6 @@ export class NgbdModalContentComponent implements OnInit {
 
     this.listTypeEnum = [];
     this.newAbsence = {};
-    this.updateAbsence = {};
     this.erreur = false;
 
     this.authSrv.verifierAuthentification().subscribe(
@@ -242,53 +245,75 @@ export class NgbdModalContentComponent implements OnInit {
     );
 
     this.form = this.formBuilder.group({
-      motif: ['', []]
+      motif: ['', []],
+      selectType: ['', [Validators.required]]
     });
+
+    this.selectType.setValue(this.absence.type);
+    this.motifDisplay();
+    this.motif.setValue(this.absence.motif);
+
+    console.log(this.absence.dateDebut);
+    console.log(this.absence.dateFin);
+    console.log(typeof (this.absence.dateDebut));
+    console.log(this.fromDate);
+
+    const dateBack: NgbDate = new NgbDate(this.absence.dateDebut.year, this.absence.dateDebut.month, this.absence.dateDebut.day);
+    console.log(dateBack);
+
+
+    this.fromDate = this.absence.dateDebut;
+    // this.fromDate = new NgbDate(this.absence.dateDebut.year, this.absence.dateDebut.month, this.absence.dateDebut.day);
+    this.toDate = this.absence.dateFin;
   }
 
-  modifierAbs(dpFromDate: NgbDate, dpToDate: NgbDate, selectType: string, motif: string): void {
-    this.validation();
+  get selectType() { return this.form.get('selectType'); }
+  get motif() { return this.form.get('motif'); }
 
-    this.updateAbsence.dateDebut = dpFromDate;
-    this.updateAbsence.dateFin = dpToDate;
-    this.updateAbsence.type = selectType;
-    this.updateAbsence.motif = motif;
-    this.dataServ2.updateAbsence(this.updateAbsence).subscribe(
-      () => {},
-      err => { },
+  modifierAbs(dpFromDate: NgbDate, dpToDate: NgbDate): void {
+
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
+    }
+
+    const updateAbsence: Absence = {
+      uuid: this.absence.uuid,
+      dateDebut: dpFromDate,
+      dateFin: dpToDate,
+      type: this.selectType.value
+    };
+
+    console.log(updateAbsence.type);
+    if (updateAbsence.type !== 'TYPE_CONGE_SANS_SOLDE') {
+      console.log('je suis la');
+      updateAbsence.motif = '';
+    }
+    else {
+      updateAbsence.motif = this.motif.value;
+    }
+
+    this.dataServ2.updateAbsence(updateAbsence).subscribe(
+      () => { this.activeModal.dismiss(); },
+      err => { console.log('ça marche pas'); },
       () => { }
     );
   }
 
-   // convenience getter for easy access to form fields
-   get formControl() { return this.form.controls; }
+  motifDisplay() {
 
-   motifDisplay(selectType) {
-
-    if (selectType.value === `TYPE_CONGE_SANS_SOLDE`) {
+    if (this.selectType.value === `TYPE_CONGE_SANS_SOLDE`) {
       this.motifMasquee = false;
-      this.form = this.formBuilder.group({
-        motif: ['', [Validators.required, Validators.minLength(3)]]
-      });
+      this.motif.setValidators([Validators.required, Validators.minLength(3)]);
+      this.motif.updateValueAndValidity();
     }
     else {
       this.motifMasquee = true;
-      this.form = this.formBuilder.group({
-        motif: ['', []]
-      });
-
+      this.motif.clearValidators();
+      this.motif.updateValueAndValidity();
     }
-  }
-
-  validation(): void {
-
-    this.submitted = true;
-
-      // stop here if form is invalid
-    if (this.form.invalid) {
-          return;
-      }
-
   }
 }
 
