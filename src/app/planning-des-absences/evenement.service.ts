@@ -1,3 +1,4 @@
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { JFerieRtt } from './../models/JFerieRtt';
 import { Evenement } from './../models/Evenement';
 import { Injectable } from '@angular/core';
@@ -21,7 +22,11 @@ getListAbsence(listAbsCoupleMoisAnnee: Absence[]
 
     listAbsCoupleMoisAnnee.forEach(element => {
       let evenement: Evenement;
-      evenement = new Evenement(element.type, element.dateDebut, element.dateFin);
+      var resDeb = element.dateDebut.split('-');
+      var startDate: NgbDate = new NgbDate(parseInt(resDeb[0]), parseInt(resDeb[1]), parseInt(resDeb[2]));
+      var resFin = element.dateDebut.split('-');
+      var endDate: NgbDate = new NgbDate(parseInt(resFin[0]), parseInt(resFin[1]), parseInt(resFin[2]));
+      evenement = new Evenement(element.type, startDate, endDate);
       this.evenements.push(evenement);
     });
     return this.evenements;
