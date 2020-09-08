@@ -1,8 +1,22 @@
 <div class="row justify-content-center">
   <h2>Planning des absences</h2>
 </div>
+
 <div class="container text-center">
-  <full-calendar [options]="calendarOptions"></full-calendar>
+  <full-calendar id="fullcalendar" [options]="calendarOptions">
+
+  </full-calendar>
+</div>
+
+<div class ='row' style="border-block-end-style: fluid;">
+</div>
+<div class="row justify-content-start">
+  <span> Solde des compteurs :
+    <ul>
+      <li *ngIf="collegueConnecte">Congés payés : {{collegueConnecte.nbCongesPayes}}</li>
+      <li *ngIf="collegueConnecte"> RTT : {{collegueConnecte.nbRtt}}</li>
+    </ul>
+  </span>
 </div>
 
 

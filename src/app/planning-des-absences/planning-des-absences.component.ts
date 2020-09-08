@@ -1,13 +1,14 @@
 import { JFerieRtt } from './../models/JFerieRtt';
-import { HttpClient } from '@angular/common/http';
 import { Absence } from './../models/Absence';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 import frLocale from '@fullcalendar/core/locales/fr';
-import { Observable, from } from 'rxjs';
 import { Collegue } from './../auth/auth.domains';
 import { AuthService } from '../auth/auth.service';
 import { PlanningDesAbsencesService } from './planning-des-absences.service';
+import { EvenementService } from './evenement.service';
+import { CalendarComponent } from 'ng-fullcalendar';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-planning-des-absences',
@@ -15,26 +16,33 @@ import { PlanningDesAbsencesService } from './planning-des-absences.service';
   styleUrls: ['./planning-des-absences.component.scss']
 })
 export class PlanningDesAbsencesComponent implements OnInit {
+  calendarOptions: CalendarOptions;
+  @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
 
-  listAbsCoupleMoisAnnée: Absence[];
+  // tslint:disable-next-line: max-line-length
+  constructor(private authSrv: AuthService, private dataServPlanAbs: PlanningDesAbsencesService, private Evenementservice: EvenementService) { }
+
+  listAbsCoupleMoisAnnee: Absence[];
   listJFerieRtt: JFerieRtt[];
-  collegueConnecte: Observable<Collegue>;
-
-  constructor(private authSrv: AuthService, private dataServPlanAbs: PlanningDesAbsencesService) { }
-
-  calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
-    locale: frLocale
-  };
-  calendarPlugins = [frLocale];
+  listeEvenements = [];
+  collegueConnecte: Collegue;
 
   ngOnInit(): void {
-    this.listAbsCoupleMoisAnnée = [];
+    this.listAbsCoupleMoisAnnee = [];
     this.listJFerieRtt = [];
-    this.collegueConnecte = this.authSrv.verifierAuthentification();
+    this.listeEvenements = [];
+
+    this.authSrv.verifierAuthentification().subscribe(
+      v => this.collegueConnecte = v,
+      err => { },
+      () => { }
+    );
 
     this.dataServPlanAbs.getAbsences().subscribe(
-      vAbsP => this.listAbsCoupleMoisAnnée = vAbsP,
+      vAbsP => {
+        this.listAbsCoupleMoisAnnee = vAbsP;
+        this.listeEvenements = this.Evenementservice.getListAbsence(this.listAbsCoupleMoisAnnee);
+      },
       err => { },
       () => { }
     );
@@ -44,6 +52,17 @@ export class PlanningDesAbsencesComponent implements OnInit {
       err => { },
       () => { }
     );
-  }
 
+    this.calendarOptions = {
+
+      initialView: 'dayGridMonth',
+      locale: frLocale,
+
+      headerToolbar: {
+        left: 'prevYear prev',
+        center: 'title',
+        right: 'next nextYear'
+      }
+    };
+  }
 }

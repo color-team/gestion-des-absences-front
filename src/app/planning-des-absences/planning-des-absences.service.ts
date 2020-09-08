@@ -26,4 +26,3 @@ export class PlanningDesAbsencesService {
     return this.Http.get<JFerieRtt[]>(`${environment.baseUrl}${environment.apiJFerieRtt}`, { withCredentials: true });
   }
 }
-

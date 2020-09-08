@@ -23,7 +23,8 @@
     <div class="form-group">
       <div class="input-group">
         <input #dpFromDate class="form-control" placeholder="dd-mm-yyyy" name="dpFromDate"
-          [value]="formatter.format(fromDate)" (input)="fromDate = validateInput(fromDate, dpFromDate.value)" />
+          [value]="formatter.format(fromDate)" (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+          readonly />
         <div class="input-group-append">
           <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
             <i class="fa fa-calendar fa-5x" aria-hidden="true"></i>
@@ -34,7 +35,7 @@
     <div class="form-group ml-2">
       <div class="input-group">
         <input #dpToDate class="form-control" placeholder="dd-mm-yyyy" name="dpToDate"
-          [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)" />
+          [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)" readonly />
         <div class="input-group-append">
           <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
         </div>
@@ -71,7 +72,6 @@
     </div>
   </div>
   <br />
-
 
   <button type="button" class="btn btn-primary row justify-content-start enregistrer"
     (click)="creerAbsence(dpFromDate.value,dpToDate.value)">Enregistrer</button>
