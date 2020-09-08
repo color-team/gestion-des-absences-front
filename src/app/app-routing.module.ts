@@ -9,6 +9,8 @@ import { TechComponent } from './tech/tech.component';
 import { StatutConnecteService } from './auth/statut-connecte.service';
 import { AuthComponent } from './auth/auth.component';
 import { ValidationDemandeComponent } from './validation-demande/validation-demande.component';
+// tslint:disable-next-line: max-line-length
+import { VueDepartementJourCollaborateurComponent } from './vue-departement-jour-collaborateur/vue-departement-jour-collaborateur.component';
 
 const routes: Routes = [
   { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService] },
@@ -20,6 +22,7 @@ const routes: Routes = [
   { path: 'jferiev', component: VisualisationJferieComponent, canActivate: [StatutConnecteService] },
   { path: 'jferied', component: AjoutJourFerieRttComponent, canActivate: [StatutConnecteService] },
   { path: 'validation', component: ValidationDemandeComponent, canActivate: [StatutConnecteService] },
+  { path: 'visuColDepMoisAnnee', component: VueDepartementJourCollaborateurComponent },
   { path: '', redirectTo: '/tech', pathMatch: 'full' }
 ];
 

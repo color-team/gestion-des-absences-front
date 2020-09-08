@@ -10,5 +10,6 @@ export const config = {
   apiAuthMe: 'me',
   apiTypeEnum: 'typeenum',
   apiAbsences: 'absences',
-  apiJFerieRtt: 'jferiesrtt'
+  apiJFerieRtt: 'jferiesrtt',
+  apiDepartement: 'departement'
 };
