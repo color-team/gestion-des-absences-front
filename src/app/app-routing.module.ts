@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TechComponent } from './tech/tech.component';
 import { StatutConnecteService } from './auth/statut-connecte.service';
 import { AuthComponent } from './auth/auth.component';
+import { VueDepartementJourCollaborateurComponent } from './vue-departement-jour-collaborateur/vue-departement-jour-collaborateur.component';
 
 const routes: Routes = [
   { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService] },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'absd', component: DemandeAbsenceComponent },
   { path: 'absp', component: PlanningDesAbsencesComponent },
   { path: 'jferiev', component: VisualisationJferieComponent },
+  { path: 'visuColDepMoisAnnee', component: VueDepartementJourCollaborateurComponent },
   { path: '', redirectTo: '/tech', pathMatch: 'full' }
 ];
 
