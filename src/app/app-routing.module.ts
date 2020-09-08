@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TechComponent } from './tech/tech.component';
 import { StatutConnecteService } from './auth/statut-connecte.service';
 import { AuthComponent } from './auth/auth.component';
+import { ValidationDemandeComponent } from './validation-demande/validation-demande.component';
 
 const routes: Routes = [
   { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService] },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'absp', component: PlanningDesAbsencesComponent, canActivate: [StatutConnecteService] },
   { path: 'jferiev', component: VisualisationJferieComponent, canActivate: [StatutConnecteService] },
   { path: 'jferied', component: AjoutJourFerieRttComponent, canActivate: [StatutConnecteService] },
+  { path: 'validation', component: ValidationDemandeComponent, canActivate: [StatutConnecteService] },
   { path: '', redirectTo: '/tech', pathMatch: 'full' }
 ];
 

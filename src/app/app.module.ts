@@ -24,6 +24,7 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
 import { VisualisationJferieComponent, NgbdModalJFerieRttComponent } from './visualisation-jferie/visualisation-jferie.component';
 import { AjoutJourFerieRttComponent } from './ajout-jour-ferie-rtt/ajout-jour-ferie-rtt.component';
+import { ValidationDemandeComponent } from './validation-demande/validation-demande.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -44,7 +45,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MenuAdministrateurComponent,
     PlanningDesAbsencesComponent,
     VisualisationJferieComponent,
-    AjoutJourFerieRttComponent
+    AjoutJourFerieRttComponent,
+    ValidationDemandeComponent
   ],
   imports: [
     BrowserModule,

@@ -17,8 +17,9 @@ import { Router } from '@angular/router';
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
     <form [formGroup]="modifForm">
+    <div class="modal-body">
+
       <div class="row justify-content-md-center">
         <div class="col col-lg-6">
           <p id="floatright">
@@ -29,9 +30,8 @@ import { Router } from '@angular/router';
           <div id="floatleft">
             <div class="form-group">
               <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd" [disabled]="true" [value]="date">
-                <input [hidden]="true" class="form-control" id="dp" name="dp" [(minDate)]="minDate" [(ngModel)]="model"
-                  ngbDatepicker #d="ngbDatepicker" formControlName="date">
+                <input class="form-control" id="dp" name="dp" [(minDate)]="minDate" [(ngModel)]="model" ngbDatepicker
+                  #d="ngbDatepicker" readonly formControlName="date">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-event" fill="currentColor"
@@ -44,7 +44,6 @@ import { Router } from '@angular/router';
                 </div>
               </div>
             </div>
-            {{date.value}}
           </div>
         </div>
       </div>
@@ -60,7 +59,6 @@ import { Router } from '@angular/router';
             <select class="form-control" formControlName="typeJ" (change)="comRequis()">
               <option *ngFor="let type of listType" [ngValue]=type>{{type}}</option>
             </select>
-            {{typeJ.value}}
           </div>
         </div>
       </div>
@@ -74,17 +72,16 @@ import { Router } from '@angular/router';
         <div class="col col-lg-6">
           <div id="floatleft">
             <textarea id="commentaire" class="form-control" id="exampleFormControlTextarea1" rows="2"
-              formControlName="commentaire" #com></textarea>
-            {{commentaire.value}}
+              formControlName="commentaire"></textarea>
           </div>
         </div>
       </div>
-    </form>
     </div>
     <div class="modal-footer">
-      <button type="button" ngbAutofocus class="btn btn-sm btn-primary">Modifier</button>
+      <button type="submit" ngbAutofocus class="btn btn-sm btn-primary" (click)="updateJFerieRtt()">Modifier</button>
       <button type="button" class="btn btn-sm btn-danger" (click)="activeModal.dismiss('Annuler')">Annuler</button>
     </div>
+    </form>
   `,
   styles: [`
   #floatright {
@@ -93,9 +90,6 @@ import { Router } from '@angular/router';
   },
   #floatleft {
     float: left;
-  },
-  #floatleft, #floatright {
-    margin-bottom: 14px;
   }`]
 })
 export class NgbdModalJFerieRttComponent implements OnInit {
@@ -114,12 +108,22 @@ export class NgbdModalJFerieRttComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataServ.currentMessage.subscribe(v => this.jFerieRtt = v);
+    this.listType = Object.values(Type);
 
     this.modifForm = new FormGroup({
       date: new FormControl('', [Validators.required]),
       commentaire: new FormControl(''),
       typeJ: new FormControl('', [Validators.required])
     });
+    this.comRequis();
+
+    const d = new Date(this.jFerieRtt.date);
+    // tslint:disable-next-line: max-line-length
+    const ngbDateStruct = { day: d.getDate(), month: d.getMonth() + 1, year: d.getFullYear() };
+
+    this.model = ngbDateStruct;
+    this.typeJ.setValue(Type[this.jFerieRtt.type]);
+    this.commentaire.setValue(this.jFerieRtt.commentaire);
   }
   get date() { return this.modifForm.get('date'); }
   get typeJ() { return this.modifForm.get('typeJ'); }
@@ -136,16 +140,21 @@ export class NgbdModalJFerieRttComponent implements OnInit {
     }
   }
 
-  retour(): void {
-    this.router.navigate(['/jferiev']);
-  }
+  updateJFerieRtt() {
 
-  modifJFerieRtt() {
+    const jFerieRttTmp: JFerieRtt = {
+      uuid: this.jFerieRtt.uuid,
+      date: new Date(this.date.value.year, this.date.value.month - 1, this.date.value.day + 1),
+      type: Object.keys(Type).find(v => Type[v] === this.typeJ.value),
+      commentaire: this.commentaire.value
+    };
+
     if (this.modifForm.valid) {
-      console.log('modif');
-    }
-    else {
-      console.log('pas modif');
+      this.dataServ.updateJFerieRtt(jFerieRttTmp).subscribe(
+        () => { this.activeModal.dismiss(); },
+        err => { },
+        () => { }
+      );
     }
   }
 }

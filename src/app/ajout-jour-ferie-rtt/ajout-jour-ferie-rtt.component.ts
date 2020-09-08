@@ -54,24 +54,17 @@ export class AjoutJourFerieRttComponent implements OnInit {
   ajouterJFerieRtt() {
 
     const jFerieRtt: JFerieRtt = {
-      date: this.date.value,
+      date: new Date(this.date.value.year, this.date.value.month - 1, this.date.value.day + 1),
       type: Object.keys(Type).find(v => Type[v] === this.typeJ.value),
       commentaire: this.commentaire.value
     };
 
-    console.log(this.date.value);
-    console.log(this.typeJ.value);
-    console.log(this.commentaire.value);
-    console.log(this.ajoutForm.valid);
-
     if (this.ajoutForm.valid) {
       this.dataServ.postJFerieRtt(jFerieRtt).subscribe(
-        () => { this.retour(); },
-        err => { console.log(err); },
+        v => { this.retour(); },
+        err => { },
         () => { }
       );
-      console.log('hop c\'est envoyé');
-      this.retour();
     }
     else {
       this.afficherErreur = true;

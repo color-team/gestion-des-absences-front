@@ -30,4 +30,8 @@ export class VisualisationJferieService {
   changeMessage(jFerieRtt: JFerieRtt): void {
     this.messageSource.next(jFerieRtt);
   }
+
+  updateJFerieRtt(jFerieRtt: JFerieRtt): Observable<JFerieRtt> {
+    return this.http.patch<JFerieRtt>(`${environment.baseUrl}${environment.apiJFerieRtt}`, jFerieRtt, { withCredentials: true });
+  }
 }
