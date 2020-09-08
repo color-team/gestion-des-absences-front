@@ -10,6 +10,7 @@ export class Collegue {
   roles: string[];
   nbRtt: number;
   nbCongesPayes: number;
+  departement: string;
 
   constructor(params: any) {
     Object.assign(this, params);
