@@ -20,13 +20,13 @@ const httpOptions = {
 })
 export class DemandeAbsenceService {
 
-  private messageBooleanAlert = new BehaviorSubject(null);
+  private messageBooleanAlert = new BehaviorSubject(false);
   currentBooleanAlert = this.messageBooleanAlert.asObservable();
 
   constructor(private http: HttpClient) { }
 
 
-  getEnum(): Observable<string[]>{
+  getEnum(): Observable<string[]> {
     return this.http.get<string[]>(`${environment.baseUrl}${environment.apiTypeEnum}`);
   }
 
@@ -39,7 +39,7 @@ export class DemandeAbsenceService {
     return this.http.patch<void>(`${environment.baseUrl}${environment.apiAbsences}`, updateAbsValues, httpOptions);
   }
 
-  changeBooleanAlert(b: boolean){
+  changeBooleanAlert(b: boolean) {
     this.messageBooleanAlert.next(b);
   }
 }

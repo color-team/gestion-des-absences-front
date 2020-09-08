@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {Collegue} from './auth/auth.domains';
-import {AuthService} from './auth/auth.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Collegue } from './auth/auth.domains';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
