@@ -6,5 +6,6 @@ export interface JFerieRtt {
   type?: string;
   jour?: string;
   commentaire?: string;
-  couleur?: ColorSpaceConversion;
+  backgroundColor?: string;
 }
+

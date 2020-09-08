@@ -34,7 +34,8 @@ getListJFerieRtt(listJFerieRtt: JFerieRtt[]){
 
   listJFerieRtt.forEach(element => {
     let evenement: EventJFerieRtt;
-    evenement = new EventJFerieRtt (element.type, element.date,);
+    evenement = new EventJFerieRtt (element.type, element.date, element.backgroundColor);
+
     this.jourFerie.push(evenement);
   });
   return this.jourFerie;

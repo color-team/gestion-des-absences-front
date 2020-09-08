@@ -16,6 +16,7 @@ import {CalendarOptions } from '@fullcalendar/angular';
 export class PlanningDesAbsencesComponent implements OnInit {
   calendarOptions: CalendarOptions;
 
+  // tslint:disable-next-line: max-line-length
   constructor( private authSrv: AuthService, private dataServPlanAbs: PlanningDesAbsencesService, private Evenementservice: EvenementService) {
    }
 
@@ -39,20 +40,22 @@ export class PlanningDesAbsencesComponent implements OnInit {
     );
 
     this.dataServPlanAbs.getAbsences().subscribe(
-      vAbsP => {this.listAbsCoupleMoisAnnee = vAbsP;
+      vAbsP => {
+        this.listAbsCoupleMoisAnnee = vAbsP;
         this.listeEvenements = this.Evenementservice.getListAbsence(this.listAbsCoupleMoisAnnee);
         console.log(this.listeEvenements);
-        this.calendarOptions.events=this.listeEvenements;
+        this.calendarOptions.events = this.listeEvenements;
       },
       err => { },
       () => { }
     );
 
     this.dataServPlanAbs.getJFerieRtt().subscribe(
-      vRttP => {this.listJFerieRtt = vRttP;
-      this.listEventJFRtt = this.Evenementservice.getListJFerieRtt(this.listJFerieRtt);
-      console.log(this.listEventJFRtt);
-      this.calendarOptions.events=this.listEventJFRtt;
+      vRttP => {
+        this.listJFerieRtt = vRttP;
+        this.listEventJFRtt = this.Evenementservice.getListJFerieRtt(this.listJFerieRtt);
+        console.log(this.listEventJFRtt) ;
+        this.calendarOptions.events = this.listEventJFRtt;
     },
       err => { },
       () => { }
@@ -61,8 +64,10 @@ export class PlanningDesAbsencesComponent implements OnInit {
     this.calendarOptions = {
       initialView: 'dayGridMonth',
       locale: frLocale,
-
-      events: [],
+      eventColor: 'green',
+      events: [{
+        backgroundColor: 'blue'
+      }],
 
       headerToolbar : {
         left : 'prevYear prev',
@@ -73,22 +78,3 @@ export class PlanningDesAbsencesComponent implements OnInit {
   }
 
 }
-
-/* 1) Créer un modèle Evenement.ts :
-
-export interface Evenement {
-  id: int;
-  title: string;
-  start: string;
-  end: string;
-}
-
-2) Crerer un service
-
-=> objectif générer la liste d'evenements []
-initialiser une liste vide "evenements"
-1- récuperer la liste  d'absences
-2- boucle sur la liste d'absences:
-  - créer un objet à partir du model evenement -> new Evenement(absence.getId(), absence.getType(), absence.getDateDebut, absence.getDateFin)
-  - liste_evenment.add(objetModelisé);
-*/
