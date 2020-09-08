@@ -5,7 +5,7 @@ import { DemandeAbsenceService } from './demande-absence.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth/auth.service';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,7 +22,6 @@ export class DemandeAbsenceComponent implements OnInit {
   listTypeEnum: string[];
 
   collegueConnecte: Collegue;
-  newAbsence: Absence;
 
   motifMasquee = true;
 
@@ -31,9 +30,9 @@ export class DemandeAbsenceComponent implements OnInit {
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
-  minDate = undefined;
+  minDate: NgbDate;
   // tslint:disable-next-line: max-line-length
-  constructor(private router: Router, private formBuilder: FormBuilder, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
+  constructor(private router: Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
     this.fromDate = calendar.getNext(calendar.getToday());
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.minDate = calendar.getNext(calendar.getToday());
@@ -69,7 +68,6 @@ export class DemandeAbsenceComponent implements OnInit {
 
   ngOnInit() {
     this.listTypeEnum = [];
-    this.newAbsence = {};
     this.erreur = false;
 
     this.authSrv.verifierAuthentification().subscribe(
@@ -84,23 +82,34 @@ export class DemandeAbsenceComponent implements OnInit {
       () => { }
     );
 
-    this.form = this.formBuilder.group({
-      motif: ['', []]
+    this.form = new FormGroup({
+      selectType: new FormControl('', [Validators.required]),
+      motif: new FormControl('', []),
     });
   }
 
-  // convenience getter for easy access to form fields
-  get formControl() { return this.form.controls; }
+  get selectType() { return this.form.get('selectType'); }
+  get motif() { return this.form.get('motif'); }
 
-  creerAbsence(dpFromDate: NgbDate, dpToDate: NgbDate, selectType: string, motif: string): void {
 
-    this.validation();
+  creerAbsence(dpFromDate: NgbDate, dpToDate: NgbDate): void {
 
-    this.newAbsence.dateDebut = dpFromDate;
-    this.newAbsence.dateFin = dpToDate;
-    this.newAbsence.type = selectType;
-    this.newAbsence.motif = motif;
-    this.dataServ.postAbsence(this.newAbsence).subscribe(
+    this.submitted = true;
+
+      // stop here if form is invalid
+    if (this.form.invalid) {
+          return;
+    }
+
+    const newAbsence: Absence = {
+      dateDebut: dpFromDate,
+      dateFin: dpToDate,
+      type: this.selectType.value,
+      motif: this.motif.value
+
+      };
+
+    this.dataServ.postAbsence(newAbsence).subscribe(
       () => { this.redirection(); },
       err => { this.erreur = true; },
       () => { }
@@ -113,32 +122,18 @@ export class DemandeAbsenceComponent implements OnInit {
   // @returns void
   // Fonction qui permet d'afficher l'input motif en fonction du type sélectionné
 
-  motifDisplay(selectType) {
+  motifDisplay() {
 
-    if (selectType.value === `TYPE_CONGE_SANS_SOLDE`) {
+    if (this.selectType.value === `TYPE_CONGE_SANS_SOLDE`) {
       this.motifMasquee = false;
-      this.form = this.formBuilder.group({
-        motif: ['', [Validators.required, Validators.minLength(3)]]
-      });
+      this.motif.setValidators([Validators.required, Validators.minLength(3)]);
+      this.motif.updateValueAndValidity();
     }
     else {
       this.motifMasquee = true;
-      this.form = this.formBuilder.group({
-        motif: ['', []]
-      });
-
+      this.motif.clearValidators();
+      this.motif.updateValueAndValidity();
     }
-  }
-
-  validation(): void {
-
-    this.submitted = true;
-
-      // stop here if form is invalid
-    if (this.form.invalid) {
-          return;
-      }
-
   }
 
   redirection(): void {

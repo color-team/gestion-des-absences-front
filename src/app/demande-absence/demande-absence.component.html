@@ -82,38 +82,35 @@
   <div class="row justify-content-start">
     <div class="form-group">
       <label for="exampleFormControlSelect1">Type de congé</label>
-      <select class="form-control" id="exampleFormControlSelect1"  (change)="motifDisplay(selectType)" #selectType>
+      <select formControlName="selectType" class="form-control" id="exampleFormControlSelect1"  (change)="motifDisplay()" [ngClass]="{ 'is-invalid': submitted && selectType.errors }">
         <option *ngFor="let item of listTypeEnum" [ngValue]=item>{{item}}</option>
       </select>
+      <div *ngIf="submitted && selectType.errors" class="invalid-feedback">
+        <div *ngIf="selectType.errors.required">Le type est requis</div>
+      </div>
     </div>
   </div>
 
   <br />
 
   <!-- ======================================MOTIF===================================================-->
-  <div class="form-group row justify-content-start" [hidden]="motifMasquee">
+  <div class="form-group row justify-content-start w-50" [hidden]="motifMasquee">
     <label for="exampleFormControlTextarea1">Motif</label>
     <textarea
     formControlName="motif"
       class="form-control"
       id="exampleFormControlTextarea1"
-      rows="3" [ngClass]="{ 'is-invalid': submitted && formControl.motif.errors }"
-    #motif></textarea>
-    <div *ngIf="submitted && formControl.motif.errors" class="invalid-feedback">
-      <div *ngIf="formControl.motif.errors.required">Le motif est requis</div>
-      <div *ngIf="formControl.motif.errors.minlength">Le motif doit comporter au mois 3 caractères</div>
+      rows="3" [ngClass]="{ 'is-invalid': submitted && motif.errors }">
+    </textarea>
+    <div *ngIf="submitted && motif.errors" class="invalid-feedback">
+      <div *ngIf="motif.errors.required">Le motif est requis</div>
+      <div *ngIf="motif.errors.minlength">Le motif doit comporter au mois 3 caractères</div>
     </div>
   </div>
   <br/>
 
 
-  <button type="button" class="btn btn-primary row justify-content-start enregistrer" (click)="creerAbsence(dpFromDate.value,dpToDate.value,selectType.value,motif.value)">Enregistrer</button>
+  <button type="button" class="btn btn-primary row justify-content-start enregistrer" (click)="creerAbsence(dpFromDate.value,dpToDate.value)">Enregistrer</button>
   <button type="button" class="btn btn-danger" routerLink="/absv">Annuler</button>
 
 </form>
-
-
-
-<!--<hr/>
-<pre>From date model: {{ fromDate | json }}</pre>
-<pre>To date model: {{ toDate | json }}</pre>-->

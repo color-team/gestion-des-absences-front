@@ -32,24 +32,11 @@ export class DemandeAbsenceService {
 
   postAbsence(newAbsence: Absence): Observable<Absence> {
     return this.http.post<Absence>(`${environment.baseUrl}${environment.apiAbsences}`, newAbsence, httpOptions);
-    /*.pipe(
-      retry(1),
-      catchError(this.handleError)
-  );*/
 
   }
 
-  handleError(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-        // client-side error
-        errorMessage = `Error: ${error.error.message}`;
-    } else {
-        // server-side error
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(error.message);
-    return throwError(errorMessage);
+  updateAbsence(updateAbsValues: Absence): Observable<void> {
+    return this.http.patch<void>(`${environment.baseUrl}${environment.apiAbsences}`, updateAbsValues, httpOptions);
   }
 
   changeBooleanAlert(b: boolean){
