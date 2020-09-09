@@ -7,7 +7,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Type } from '../models/Type';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   template: `
@@ -151,7 +151,7 @@ export class NgbdModalJFerieRttComponent implements OnInit {
 
     if (this.modifForm.valid) {
       this.dataServ.updateJFerieRtt(jFerieRttTmp).subscribe(
-        () => { this.activeModal.dismiss(); },
+        () => { this.activeModal.dismiss(); this.router.navigate(['/jferiev']); },
         err => { },
         () => { }
       );
@@ -171,7 +171,14 @@ export class VisualisationJferieComponent implements OnInit {
   collegueConnecte: Collegue;
   anneeSelectionne: string;
 
-  constructor(private authSrv: AuthService, private dataServ: VisualisationJferieService, private modalService: NgbModal) { }
+  // tslint:disable-next-line: max-line-length
+  constructor(private router: Router, private authSrv: AuthService, private dataServ: VisualisationJferieService, private modalService: NgbModal) {
+    this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationEnd) {
+        this.ngOnInit();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.listAnnee = [];
