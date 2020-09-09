@@ -28,6 +28,7 @@ import { VueSynthetiqueComponent } from './vue-synthetique/vue-synthetique.compo
 import { VisualisationJferieComponent, NgbdModalJFerieRttComponent } from './visualisation-jferie/visualisation-jferie.component';
 import { AjoutJourFerieRttComponent } from './ajout-jour-ferie-rtt/ajout-jour-ferie-rtt.component';
 import { ValidationDemandeComponent } from './validation-demande/validation-demande.component';
+import { TableModule } from 'primeng/table';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -62,7 +63,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ReactiveFormsModule,
     NgbModule,
     FullCalendarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
