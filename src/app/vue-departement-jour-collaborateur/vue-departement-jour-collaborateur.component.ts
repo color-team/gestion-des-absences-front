@@ -186,7 +186,33 @@ export class VueDepartementJourCollaborateurComponent implements OnInit {
   }
 
   retour() {
-    this.router.navigate(['/absv']);
+    this.router.navigate(['/vuesynthetique']);
   }
+
+  exportExcel() {
+    import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.data);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "absences");
+
+        const worksheet2 = xlsx.utils.json_to_sheet(this.listeJourFeriesRTTEmployeurMoisAnnee);
+        const workbook2 = { Sheets: { 'data': worksheet2 }, SheetNames: ['data'] };
+        const excelBuffer2: any = xlsx.write(workbook2, { bookType: 'xlsx', type: 'array' });
+
+        this.saveAsExcelFile(excelBuffer2, "ferieRttEmployeur");
+    });
+}
+
+saveAsExcelFile(buffer: any, fileName: string): void {
+    import("file-saver").then(FileSaver => {
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_EXTENSION = '.xlsx';
+        const data: Blob = new Blob([buffer], {
+            type: EXCEL_TYPE
+        });
+        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    });
+}
 
 }

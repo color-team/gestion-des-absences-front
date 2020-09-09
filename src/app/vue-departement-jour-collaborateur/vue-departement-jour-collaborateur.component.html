@@ -1,44 +1,42 @@
 <h2 class="text-center">Vue par département par jour et par collaborateur</h2>
-<form [formGroup]="form" >
-  <div class="row justify-content-center">
-    <div class="col">
-        <div class="form-group form-inline">
-            <label for="departement">Département</label>
-            <select class="form-control" id="departement" formControlName="departement">
-              <option *ngFor="let departement of departements" [ngValue]=departement>{{departement}}</option>
-            </select>
-          </div>
+<form class="form-inline justify-content-center" [formGroup]="form" >
+  <div class="d-flex flex-row">
+    <div class="form-group pr-3">
+      <label for="departement">Département </label>
+      &nbsp;
+      <select class="form-control" id="departement" formControlName="departement">
+        <option *ngFor="let departement of departements" [ngValue]=departement>{{departement}}</option>
+      </select>
     </div>
 
-    <div class="col">
-        <div class="form-group form-inline">
-            <label for="mois">Mois</label>
-            <select class="form-control" id="mois" formControlName="mois">
-              <option *ngFor="let mois of listeMois" [ngValue]=mois>{{mois.Text}}</option>
-            </select>
-          </div>
+    <div class="form-group pr-3">
+      <label for="mois">Mois </label>
+      &nbsp;
+      <select class="form-control" id="mois" formControlName="mois">
+        <option *ngFor="let mois of listeMois" [ngValue]=mois>{{mois.Text}}</option>
+      </select>
     </div>
 
-    <div class="col">
-        <div class="form-group form-inline">
-            <label for="annee">Année</label>
-            <select class="form-control" id="annee" formControlName="annee">
-              <option *ngFor="let annee of annees" [ngValue]=annee>{{annee}}</option>
-            </select>
-          </div>
+    <div class="form-group pr-3">
+      <label for="annee">Année</label>
+      &nbsp;
+      <select class="form-control" id="annee" formControlName="annee">
+        <option *ngFor="let annee of annees" [ngValue]=annee>{{annee}}</option>
+      </select>
     </div>
+    
 
-    <div class="col">
-      <button class="btn btn-secondary" type="submit" (click)="afficher()">
-          Search
-        </button>
-    </div>
+    
 
-    <div class="col">
-      <button class="btn btn-success" type="button">
-          Excel
-        </button>
-    </div>
+    <button class="btn btn-secondary pr-3" type="submit" (click)="afficher()">
+      Search
+    </button>
+
+    &nbsp;&nbsp;&nbsp;
+
+    <button class="btn btn-success pl-3" type="button" (click)="exportExcel()">
+      Excel
+    </button>
 
   </div>
 </form>
