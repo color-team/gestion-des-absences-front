@@ -12,5 +12,6 @@ export const config = {
   apiAbsences: 'absences',
   apiJFerieRtt: 'jferiesrtt',
   apiDepartement: 'departement',
-  apiAbsValideeMoisAnneeDepartement: 'vmad'
+  apiAbsValideeMoisAnneeDepartement: 'vmad',
+  apiTraitementNuit: 'traitementdenuit'
 };

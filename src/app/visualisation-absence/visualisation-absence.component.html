@@ -20,8 +20,8 @@
       <tr *ngFor="let absence of listAbsences">
         <td>{{absence.dateDebut}}</td>
         <td>{{absence.dateFin}}</td>
-        <td>{{absence.type}}</td>
-        <td>{{absence.status}}</td>
+        <td>{{convertT(absence.type)}}</td>
+        <td>{{convertS(absence.status)}}</td>
         <td>
 
           <div class="d-flex justify-content-end">
