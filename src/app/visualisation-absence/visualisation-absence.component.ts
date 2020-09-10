@@ -1,5 +1,4 @@
 import { Status, TypeA } from './../models/Type';
-import { JFerieRtt } from './../models/JFerieRtt';
 import { Collegue } from './../auth/auth.domains';
 import { ServiceVisuService } from './service-visu.service';
 import { NgbActiveModal, NgbModal, NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -8,8 +7,7 @@ import { Absence } from '../models/Absence';
 import { AuthService } from '../auth/auth.service';
 import { DemandeAbsenceService } from '../demande-absence/demande-absence.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Type } from '../models/Type';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-ngbd-modal-content',
@@ -197,10 +195,11 @@ export class NgbdModalAbsComponent implements OnInit {
   minDate: NgbDate;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private formBuilder: FormBuilder, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, public activeModal: NgbActiveModal, private authSrv: AuthService, private dataServ: ServiceVisuService, private dataServ2: DemandeAbsenceService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, public activeModal: NgbActiveModal, private authSrv: AuthService, private dataServ: ServiceVisuService, private dataServ2: DemandeAbsenceService) {
     this.fromDate = calendar.getNext(calendar.getToday());
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.minDate = calendar.getNext(calendar.getToday());
+
   }
 
   onDateSelection(date: NgbDate) {
@@ -273,10 +272,10 @@ export class NgbdModalAbsComponent implements OnInit {
     console.log(this.fromDate);*/
 
 
-    var resDeb = this.absence.dateDebut.split('-');
-    this.fromDate = new NgbDate(parseInt(resDeb[0]), parseInt(resDeb[1]), parseInt(resDeb[2]));
-    var resFin = this.absence.dateFin.split('-');
-    this.toDate = new NgbDate(parseInt(resFin[0]), parseInt(resFin[1]), parseInt(resFin[2]));
+    const resDeb = this.absence.dateDebut.split('-');
+    this.fromDate = new NgbDate(parseInt(resDeb[0], 0), parseInt(resDeb[1], 0), parseInt(resDeb[2], 0));
+    const resFin = this.absence.dateFin.split('-');
+    this.toDate = new NgbDate(parseInt(resFin[0], 0), parseInt(resFin[1], 0), parseInt(resFin[2], 0));
   }
 
   get selectType() { return this.form.get('selectType'); }
@@ -305,7 +304,7 @@ export class NgbdModalAbsComponent implements OnInit {
     }
 
     this.dataServ2.updateAbsence(updateAbsence).subscribe(
-      () => { this.activeModal.dismiss(); },
+      () => { this.activeModal.dismiss(); this.router.navigate(['/absv']); },
       err => { },
       () => { }
     );
@@ -341,7 +340,13 @@ export class VisualisationAbsenceComponent implements OnInit {
   success = false;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private authSrv: AuthService, private dataServ: ServiceVisuService, private dataServ2: DemandeAbsenceService, private modalService: NgbModal) { }
+  constructor(private router: Router, private authSrv: AuthService, private dataServ: ServiceVisuService, private dataServ2: DemandeAbsenceService, private modalService: NgbModal) {
+    this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationEnd) {
+        this.ngOnInit();
+      }
+    });
+  }
 
   ngOnInit() {
     this.listAbsences = [];
@@ -377,7 +382,7 @@ export class VisualisationAbsenceComponent implements OnInit {
   select(abs: Absence): void {
     this.dataServ.changeMessage(abs);
 
-    const modalRef = this.modalService.open(NgbdModalAbsComponent, {size: 'lg'});
+    const modalRef = this.modalService.open(NgbdModalAbsComponent, { size: 'lg' });
     modalRef.componentInstance.name = 'ModificationAbsence';
   }
 

@@ -7,4 +7,6 @@ export interface JFerieRtt {
   valide?: boolean;
   jour?: string;
   commentaire?: string;
+  backgroundColor?: string;
 }
+

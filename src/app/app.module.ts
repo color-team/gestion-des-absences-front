@@ -23,11 +23,13 @@ import { MenuAdministrateurComponent } from './menu-administrateur/menu-administ
 // tslint:disable-next-line: max-line-length
 import { VueDepartementJourCollaborateurComponent } from './vue-departement-jour-collaborateur/vue-departement-jour-collaborateur.component';
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VisualisationJferieComponent, NgbdModalJFerieRttComponent} from './visualisation-jferie/visualisation-jferie.component';
 
 import { VueSynthetiqueComponent } from './vue-synthetique/vue-synthetique.component';
-import { VisualisationJferieComponent, NgbdModalJFerieRttComponent } from './visualisation-jferie/visualisation-jferie.component';
 import { AjoutJourFerieRttComponent } from './ajout-jour-ferie-rtt/ajout-jour-ferie-rtt.component';
 import { ValidationDemandeComponent } from './validation-demande/validation-demande.component';
+import { TableModule } from 'primeng/table';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -62,7 +64,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ReactiveFormsModule,
     NgbModule,
     FullCalendarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TableModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
