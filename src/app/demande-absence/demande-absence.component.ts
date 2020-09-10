@@ -92,7 +92,7 @@ export class DemandeAbsenceComponent implements OnInit {
   get motif() { return this.form.get('motif'); }
 
 
-  creerAbsence(dpFromDate: NgbDate, dpToDate: NgbDate): void {
+  creerAbsence(dpFromDate: string, dpToDate: string): void {
 
     this.submitted = true;
 
@@ -102,8 +102,8 @@ export class DemandeAbsenceComponent implements OnInit {
     }
 
     const newAbsence: Absence = {
-      dateDebut: dpFromDate.year + '-' + dpFromDate.month + '-' + dpFromDate.day,
-      dateFin: dpToDate.year + '-' + dpToDate.month + '-' + dpToDate.day,
+      dateDebut: dpFromDate,
+      dateFin: dpToDate,
       type: this.selectType.value,
       motif: this.motif.value
 
