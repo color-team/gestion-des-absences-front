@@ -19,7 +19,7 @@ export class PlanningDesAbsencesComponent implements OnInit {
 
   // tslint:disable-next-line: max-line-length
   constructor( private authSrv: AuthService, private dataServPlanAbs: PlanningDesAbsencesService, private Evenementservice: EvenementService) {
-   }
+  }
 
   listAbsCoupleMoisAnnee: Absence[];
   listJFerieRtt: JFerieRtt[];

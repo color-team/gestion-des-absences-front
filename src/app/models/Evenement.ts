@@ -2,10 +2,10 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 export class Evenement {
 
   title: string;
-  start: NgbDate;
-  end: NgbDate;
+  start: string;
+  end: string;
 
-  constructor(title: string, start: NgbDate, end: NgbDate ){
+  constructor(title: string, start: string, end: string ){
 
     this.title = title;
     this.start = start;
