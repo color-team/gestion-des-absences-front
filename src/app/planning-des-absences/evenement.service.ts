@@ -1,3 +1,4 @@
+import { EventJFerieRtt } from './../models/EventJFerieRtt';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { JFerieRtt } from './../models/JFerieRtt';
 import { Evenement } from './../models/Evenement';
@@ -9,7 +10,8 @@ import { Absence } from '../models/Absence';
 })
 export class EvenementService {
 
-  evenements: Evenement[];
+evenements: Evenement[];
+jourFerie: EventJFerieRtt[];
 
   constructor() { }
 
@@ -29,5 +31,18 @@ export class EvenementService {
     });
     return this.evenements;
   }
+
+getListJFerieRtt(listJFerieRtt: JFerieRtt[]){
+  this.jourFerie = [];
+
+  listJFerieRtt.forEach(element => {
+    let evenement: EventJFerieRtt;
+    // tslint:disable-next-line: max-line-length
+    evenement = new EventJFerieRtt (element.type, new NgbDate(element.date.getFullYear(), element.date.getMonth(), element.date.getDay()), element.backgroundColor);
+
+    this.jourFerie.push(evenement);
+  });
+  return this.jourFerie;
+}
 
 }
