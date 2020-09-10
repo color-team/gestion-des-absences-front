@@ -1,0 +1,109 @@
+<h2 class="text-center">Vue par département par jour et par collaborateur</h2>
+<form class="form-inline justify-content-center" [formGroup]="form" >
+  <div class="d-flex flex-row">
+    <div class="form-group pr-3">
+      <label for="departement">Département </label>
+      &nbsp;
+      <select class="form-control" id="departement" formControlName="departement">
+        <option *ngFor="let departement of departements" [ngValue]=departement>{{departement}}</option>
+      </select>
+    </div>
+
+    <div class="form-group pr-3">
+      <label for="mois">Mois </label>
+      &nbsp;
+      <select class="form-control" id="mois" formControlName="mois">
+        <option *ngFor="let mois of listeMois" [ngValue]=mois>{{mois.Text}}</option>
+      </select>
+    </div>
+
+    <div class="form-group pr-3">
+      <label for="annee">Année</label>
+      &nbsp;
+      <select class="form-control" id="annee" formControlName="annee">
+        <option *ngFor="let annee of annees" [ngValue]=annee>{{annee}}</option>
+      </select>
+    </div>
+    
+
+    
+
+    <button class="btn btn-secondary pr-3" type="submit" (click)="afficher()">
+      Search
+    </button>
+
+    &nbsp;&nbsp;&nbsp;
+
+    <button class="btn btn-success pl-3" type="button" (click)="exportExcel()">
+      Excel
+    </button>
+
+  </div>
+</form>
+
+<br>
+
+<div class="row justify-content-center">
+  <p-table class="dt" [columns]="cols" [value]="data" *ngIf="visible" styleClass="p-datatable-responsive-demo" [autoLayout]="true">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns" [ngClass]="{'weekend': isNumber(col) && isWeekend(col)}">
+  
+              <div *ngIf="col == 'Nom'">
+                {{rowData.collegue['nom'].toUpperCase()}}
+              </div>
+
+              <div *ngIf="isNumber(col) && !isWeekend(col)">
+
+                <div *ngIf="DateInterval(col, rowData.dateDebut, rowData.dateFin)">
+                  <div *ngIf="rowData.type == 'TYPE_CONGE_PAYE'">
+                    C
+                  </div>
+                  <div *ngIf="rowData.type == 'TYPE_CONGE_SANS_SOLDE'">
+                    S
+                  </div>
+                  <div *ngIf="rowData.type == 'TYPE_RTT'">
+                    R
+                  </div>
+                  
+                </div>
+  
+                <div *ngFor="let jour of listeJourFeriesRTTEmployeurMoisAnnee">
+                  <div *ngIf="isNumber(col) && isSameJFRttDate(col, jour.date)">
+                    <div *ngIf="jour.type == 'TYPE_FERIE'">
+                      F
+                    </div>
+                    <div *ngIf="jour.type == 'TYPE_RTT_EMPLOYEUR'">
+                      R
+                    </div>
+                  </div>
+                </div>
+              </div>
+                
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+
+  <div class="row align-items-center" *ngIf="afficherFoot">
+    <p class="Legende">C: congés, F: Férié, R: RTT, S: Sans solde</p>
+    <button class="BoutonRetour btn btn-primary" type="button" (click)="retour()">
+      Retour
+    </button>
+
+  </div>
+</div>
+
+
+
+
+    
+    
+  

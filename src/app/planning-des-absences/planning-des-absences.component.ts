@@ -1,3 +1,4 @@
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { JFerieRtt } from './../models/JFerieRtt';
 import { Absence } from './../models/Absence';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -35,8 +36,8 @@ export class PlanningDesAbsencesComponent implements OnInit {
 
     this.authSrv.verifierAuthentification().subscribe(
       v => this.collegueConnecte = v,
-      err => {},
-      () => {}
+      err => { },
+      () => { }
     );
 
     this.dataServPlanAbs.getAbsences().subscribe(
@@ -54,7 +55,7 @@ export class PlanningDesAbsencesComponent implements OnInit {
       vRttP => {
         this.listJFerieRtt = vRttP;
         this.listEventJFRtt = this.Evenementservice.getListJFerieRtt(this.listJFerieRtt);
-        console.log(this.listEventJFRtt) ;
+        console.log(this.listEventJFRtt);
         this.calendarOptions.events = this.listEventJFRtt;
     },
       err => { },
@@ -65,16 +66,14 @@ export class PlanningDesAbsencesComponent implements OnInit {
       initialView: 'dayGridMonth',
       locale: frLocale,
       eventColor: 'green',
-      events: [{
-        backgroundColor: 'blue'
-      }],
 
-      headerToolbar : {
-        left : 'prevYear prev',
-        center : 'title',
-        right : 'next nextYear'
+      events: [],
+
+      headerToolbar: {
+        left: 'prevYear,prev',
+        center: 'title',
+        right: 'next,nextYear'
       }
     };
   }
-
 }

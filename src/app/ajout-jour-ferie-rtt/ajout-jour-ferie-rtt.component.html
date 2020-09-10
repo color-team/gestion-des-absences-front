@@ -1,0 +1,93 @@
+<br />
+<div class="d-flex justify-content-center">
+  <h1> Jours fériés et RTT employeurs </h1>
+</div>
+<br />
+<div *ngIf="afficherErreur">
+  <div *ngIf="date.invalid" class="alert alert-danger">
+    <div *ngIf="date.errors.required">
+      Le date est requise.
+    </div>
+  </div>
+  <div *ngIf="typeJ.invalid" class="alert alert-danger">
+    <div *ngIf="typeJ.errors.required">
+      Le type du jour est requis.
+    </div>
+  </div>
+  <div *ngIf="commentaire.invalid" class="alert alert-danger">
+    <div *ngIf="commentaire.errors.required">
+      Le commentaire est requis avec le type "Jour férié".
+    </div>
+  </div>
+</div>
+<form [formGroup]='ajoutForm'>
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+      <p id="floatright">
+        Date
+      </p>
+    </div>
+    <div class="col col-lg-2">
+      <div id="floatleft">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" id="dp" name="dp" [(minDate)]="minDate" [(ngModel)]="model" ngbDatepicker
+              #d="ngbDatepicker" readonly formControlName="date">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-event" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+      <div id="floatright">
+        Type du jour
+      </div>
+    </div>
+    <div class="col col-lg-2">
+      <div id="floatleft">
+        <select class="form-control" formControlName="typeJ" (change)="comRequis()">
+          <option *ngFor="let type of listType" [ngValue]=type>{{type}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+      <div id="floatright">
+        Commentaires
+      </div>
+    </div>
+    <div class="col col-lg-2">
+      <div id="floatleft">
+        <textarea id="commentaire" class="form-control" id="exampleFormControlTextarea1" rows="2"
+          formControlName="commentaire"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+      <div id="floatright">
+        <button class="btn btn-danger" (click)="retour()">Annuler</button>
+      </div>
+    </div>
+    <div class="col col-lg-2">
+      <div id="floatleft">
+        <button type="submit" class="btn btn-primary" (click)="ajouterJFerieRtt()">Valider</button>
+      </div>
+    </div>
+  </div>
+</form>

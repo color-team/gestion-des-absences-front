@@ -1,10 +1,9 @@
 import { EventJFerieRtt } from './../models/EventJFerieRtt';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { JFerieRtt } from './../models/JFerieRtt';
 import { Evenement } from './../models/Evenement';
 import { Injectable } from '@angular/core';
-import { PlanningDesAbsencesComponent } from './planning-des-absences.component';
 import { Absence } from '../models/Absence';
-import { EventSourceInput } from '@fullcalendar/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +13,20 @@ export class EvenementService {
 evenements: Evenement[];
 jourFerie: EventJFerieRtt[];
 
-constructor() { }
+  constructor() { }
 
 
-getListAbsence(listAbsCoupleMoisAnnee: Absence[]
-  ){
+  getListAbsence(listAbsCoupleMoisAnnee: Absence[]
+  ) {
     this.evenements = [];
 
     listAbsCoupleMoisAnnee.forEach(element => {
       let evenement: Evenement;
-      evenement = new Evenement(element.type, element.dateDebut, element.dateFin);
+      const resDeb = element.dateDebut.split('-');
+      const startDate: NgbDate = new NgbDate(parseInt(resDeb[0], 0), parseInt(resDeb[1], 0), parseInt(resDeb[2], 0));
+      const resFin = element.dateDebut.split('-');
+      const endDate: NgbDate = new NgbDate(parseInt(resFin[0], 0), parseInt(resFin[1], 0), parseInt(resFin[2], 0));
+      evenement = new Evenement(element.type, startDate, endDate);
       this.evenements.push(evenement);
     });
     return this.evenements;
@@ -34,7 +37,8 @@ getListJFerieRtt(listJFerieRtt: JFerieRtt[]){
 
   listJFerieRtt.forEach(element => {
     let evenement: EventJFerieRtt;
-    evenement = new EventJFerieRtt (element.type, element.date, element.backgroundColor);
+    // tslint:disable-next-line: max-line-length
+    evenement = new EventJFerieRtt (element.type, new NgbDate(element.date.getFullYear(), element.date.getMonth(), element.date.getDay()), element.backgroundColor);
 
     this.jourFerie.push(evenement);
   });

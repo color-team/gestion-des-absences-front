@@ -13,18 +13,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { StatutConnecteService } from './auth/statut-connecte.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemandeAbsenceComponent } from './demande-absence/demande-absence.component';
-import { VisualisationAbsenceComponent, NgbdModalContentComponent } from './visualisation-absence/visualisation-absence.component';
+import { VisualisationAbsenceComponent, NgbdModalAbsComponent } from './visualisation-absence/visualisation-absence.component';
 import { NgbModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { MenuEmployeComponent } from './menu-employe/menu-employe.component';
 import { MenuManagerComponent } from './menu-manager/menu-manager.component';
 import { MenuAdministrateurComponent } from './menu-administrateur/menu-administrateur.component';
+// tslint:disable-next-line: max-line-length
+import { VueDepartementJourCollaborateurComponent } from './vue-departement-jour-collaborateur/vue-departement-jour-collaborateur.component';
 import { PlanningDesAbsencesComponent } from './planning-des-absences/planning-des-absences.component';
-import { VisualisationJferieComponent } from './visualisation-jferie/visualisation-jferie.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { VisualisationJferieComponent, NgbdModalJFerieRttComponent} from './visualisation-jferie/visualisation-jferie.component';
+
+import { VueSynthetiqueComponent } from './vue-synthetique/vue-synthetique.component';
+import { AjoutJourFerieRttComponent } from './ajout-jour-ferie-rtt/ajout-jour-ferie-rtt.component';
+import { ValidationDemandeComponent } from './validation-demande/validation-demande.component';
+import { TableModule } from 'primeng/table';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -38,35 +43,36 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TechComponent,
     DemandeAbsenceComponent,
     VisualisationAbsenceComponent,
-    NgbdModalContentComponent,
+    NgbdModalAbsComponent,
+    NgbdModalJFerieRttComponent,
     MenuEmployeComponent,
     MenuManagerComponent,
     MenuAdministrateurComponent,
+    VueDepartementJourCollaborateurComponent,
     PlanningDesAbsencesComponent,
-    VisualisationJferieComponent
+    VisualisationJferieComponent,
+    VueSynthetiqueComponent,
+    AjoutJourFerieRttComponent,
+    ValidationDemandeComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     FullCalendarModule,
-    BrowserAnimationsModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
+    ReactiveFormsModule,
+    TableModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true,
   },
- /* {
-    provide: NgbDateParserFormatter,
-    useClass: NgbDateCustomParserFormatter
-  }*/],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

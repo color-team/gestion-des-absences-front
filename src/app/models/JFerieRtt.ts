@@ -1,9 +1,10 @@
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 export interface JFerieRtt {
-  id?: number;
-  date?: NgbDate;
-  type?: string;
+  uuid?: string;
+  date: Date;
+  type: string;
+  valide?: boolean;
   jour?: string;
   commentaire?: string;
   backgroundColor?: string;

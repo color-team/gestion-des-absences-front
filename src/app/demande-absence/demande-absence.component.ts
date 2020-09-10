@@ -1,9 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Collegue } from './../auth/auth.domains';
 import { Absence } from './../models/Absence';
 import { DemandeAbsenceService } from './demande-absence.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbDate, NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth/auth.service';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-demande-absence',
@@ -12,10 +15,13 @@ import { AuthService } from '../auth/auth.service';
 })
 export class DemandeAbsenceComponent implements OnInit {
 
+  form: FormGroup;
+  submitted = false;
+  erreur: boolean;
+
   listTypeEnum: string[];
 
   collegueConnecte: Collegue;
-  newAbsence: Absence;
 
   motifMasquee = true;
 
@@ -24,10 +30,9 @@ export class DemandeAbsenceComponent implements OnInit {
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
-  minDate = undefined;
-  // min-date = "calendar.getToday()"
+  minDate: NgbDate;
   // tslint:disable-next-line: max-line-length
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
+  constructor(private router: Router, private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private config: NgbDatepickerConfig, private dataServ: DemandeAbsenceService, private authSrv: AuthService) {
     this.fromDate = calendar.getNext(calendar.getToday());
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.minDate = calendar.getNext(calendar.getToday());
@@ -36,7 +41,7 @@ export class DemandeAbsenceComponent implements OnInit {
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
+    } else if (this.fromDate && !this.toDate && date) {
       this.toDate = date;
     } else {
       this.toDate = null;
@@ -61,9 +66,9 @@ export class DemandeAbsenceComponent implements OnInit {
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.listTypeEnum = [];
-    this.newAbsence = {};
+    this.erreur = false;
 
     this.authSrv.verifierAuthentification().subscribe(
       v => this.collegueConnecte = v,
@@ -76,16 +81,37 @@ export class DemandeAbsenceComponent implements OnInit {
       err => { },
       () => { }
     );
+
+    this.form = new FormGroup({
+      selectType: new FormControl('', [Validators.required]),
+      motif: new FormControl('', []),
+    });
   }
 
-  creerAbsence(dpFromDate: NgbDate, dpToDate: NgbDate, selectType: string, motif: string): void {
+  get selectType() { return this.form.get('selectType'); }
+  get motif() { return this.form.get('motif'); }
 
-    this.newAbsence.dateDebut = dpFromDate;
-    this.newAbsence.dateFin = dpToDate;
-    this.newAbsence.type = selectType;
-    this.newAbsence.motif = motif;
-    this.dataServ.postAbsence(this.newAbsence).subscribe(
-      err => { },
+
+  creerAbsence(dpFromDate: NgbDate, dpToDate: NgbDate): void {
+
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
+    }
+
+    const newAbsence: Absence = {
+      dateDebut: dpFromDate.year + '-' + dpFromDate.month + '-' + dpFromDate.day,
+      dateFin: dpToDate.year + '-' + dpToDate.month + '-' + dpToDate.day,
+      type: this.selectType.value,
+      motif: this.motif.value
+
+    };
+
+    this.dataServ.postAbsence(newAbsence).subscribe(
+      () => { this.redirection(); },
+      err => { this.erreur = true; },
       () => { }
     );
   }
@@ -96,14 +122,28 @@ export class DemandeAbsenceComponent implements OnInit {
   // @returns void
   // Fonction qui permet d'afficher l'input motif en fonction du type sélectionné
 
-  motifDisplay(selectType) {
+  motifDisplay() {
 
-    if (selectType.value === `TYPE_CONGE_SANS_SOLDE`) {
+    if (this.selectType.value === `TYPE_CONGE_SANS_SOLDE`) {
       this.motifMasquee = false;
+      this.motif.setValidators([Validators.required, Validators.minLength(3)]);
+      this.motif.updateValueAndValidity();
     }
     else {
       this.motifMasquee = true;
+      this.motif.clearValidators();
+      this.motif.updateValueAndValidity();
     }
+  }
+
+  redirection(): void {
+    this.dataServ.changeBooleanAlert(true);
+    this.router.navigate(['/absv']);
+  }
+
+  retour() {
+    this.dataServ.changeBooleanAlert(false);
+    this.router.navigate(['/absv']);
   }
 
 }

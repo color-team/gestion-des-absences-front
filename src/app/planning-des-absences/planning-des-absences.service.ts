@@ -6,7 +6,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Absence } from '../models/Absence';
 
-
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
